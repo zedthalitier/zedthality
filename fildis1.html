@@ -1,0 +1,1931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Management System</title>
+    <style>
+        .lesson-text {
+  max-width: 720px;
+  margin: 40px auto;
+  padding: 32px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  font-family: 'Inter', sans-serif;
+  color: #374151; /* neutral gray */
+}
+
+.lesson-text p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 18px;
+  color: #4b5563;
+}
+
+.team-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 30px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px 20px;
+}
+
+.team-list li {
+  position: relative;
+  padding-left: 24px;
+  font-weight: 600;
+  color: #1e3a8a; /* deep blue */
+}
+
+.team-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #2563eb;
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.footer-note {
+  margin-top: 24px;
+  font-size: 0.9rem;
+  color: #9ca3af;
+  text-align: center;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 16px;
+}
+    
+    
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e6e6fa;
+            color: #9370DB;
+        }
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: #e6e6fa;
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .lesson-list {
+            list-style: none;
+        }
+
+        .lesson-item {
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #e0f7fa;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .lesson-item:hover {
+            background-color: #b2ebf2;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .lesson-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .lesson-title {
+            margin-bottom: 20px;
+            color: #5d4037;
+        }
+
+        .lesson-text {
+            margin-top: 30px;
+            text-align: left;
+            line-height: 1.6;
+        }
+
+        .lesson-text p {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <ul class="lesson-list" id="lessonList">
+            <!-- Lessons will be added here dynamically -->
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div class="lesson-content" id="lessonContent">
+            <h1 class="lesson-title">Mga Aralin sa Asignaturang Filipino sa Larang ng Iba't-ibang Disipilina</h1>
+            <!-- Lesson content will be loaded here -->
+        </div>
+    </div>
+
+    <script>
+        // Sample lesson data
+        const lessons = [
+            {
+                id: 1,
+                title: "Home",
+                content: '<img src="https://assets.onecompiler.app/43hsvrazv/43hsr8xn9/HOME.png" alt="Welcome Image" width="500" style="display: block; margin: 0 auto;">'
+            },
+            {    
+                id: 2,
+                title: "Aralin 1: Ang Filipino bilang Wikang Pambansa",
+                content: `
+                    <div class="lesson-text">
+                        <p>Batay sa awitin na inawait kanina, ano ang kinalaman nito sa pagkakaroon ng maraming wika sa bansang Pilipinas?</p>
+                        <p>Ayon kay Roberto T. Anonuevo, Direktor –Heneral ng Komisyaon sa Wikang Filipino (2018) Napatunayan ng (wikang) Filipino na kaya itong tanggapin sa iba't-ibang rehiyon at gawing katuwang ng wika ng rehiyon dahil ang komposisyon ng Filipino ay hindi nalalayo sa naturang wika.</p>
+                        <p>Ayon kay Dr. Ernesto Constantino at Pamela Costantino mayroong 100 wika sa Pilipinas.</p>
+                        <img src="https://assets.onecompiler.app/43hsvrazv/43ht5ytbu/1st%20pec.png" alt="Lesson Image" width="400" style="display: block; margin: 20px auto;">
+                    <p> (Ang larawan na ito ay kinuha sa google.com)
+Makikita sa Grap ang mga pursyeto o dami ng tao na nagsasalita sa wikang kanilang kinasanayan, ang mga Wika na nasa Grap at ang Sampong (10) ng wika sa Pilipinas na ginagaamit ng nakararaming mamamayan
+Batay naman kay Lorenzo Hueves y Panduro (1784) bago pa ang kolonyalisasyon ay pamilya ng
+malayo-polinesyo ang wikang Filipino. Sa Pananaliksk nina Costantino at Wilhelm Schmidt
+(1899) na Awstronesyan ang pamilya ng wika ng kinabibilangan ng mga wika sa Pilipinas. </p>
+<img src="https://assets.onecompiler.app/43hsvrazv/43ht5ytbu/2nd%20pec.png" alt="Lesson Image" width="400" style="display: block; margin: 20px auto;">
+<p> <b>(Ang larawan ay kinuha sa Google)</b> sa larawan ang mga sinaunang paraan ng pagsulat sa iba’t ibang probinsiya ng Pilipinas, Kung mapapansin ninyo magkakamukha ang mga paraan nila ng pagsulat. Katunayan ito na maraming naging kamag anak ang mga wika sa Filipinas tungo sa ibang bansa </p>
+ <br> <b>Pagpasok ng Ibang wikang Kolonyal sa Pilipinas</b> </p>
+ <img src="https://assets.onecompiler.app/43hsvrazv/43ht5ytbu/3rd%20pec.png" alt="Lesson Image" width="400" style="display: block; margin: 20px auto;">
+ <p> Makikita sa Grap kung paano nakulong ang wikang Filipino sa wika ng ibang bayan batay kung sa paano ito namulaklak sa kultura at wiikang Filipino, ang pagiging Multilinggual ng Pilipinas ay naging instrumento upang mag karoon ng adaptasyon ang wika ng ibang bayan sa wikang Filipino. </p>
+ <p> <b> 1.2 Makilala ang mga bansang Multilingual din ang gamit sa Edukasyon </b> </p>
+ <br> <b>Mga bansang Multilingual</b> </p>
+ <p> <b>ARUBA -</b> Isa sa mga bansang bumubuo ng kaharian ng Netherlands at malapit sa Venezuela at ang wika ay "papiamento". Wikang Umusbong mula sa portures, Kastila, Dutch at Ingles </p> 
+ <p> <b>East timor (Timor-Leste) -</b> Wika Tetum. May kabisahan din sa wikang Portuges at Ingles India Wika Hindi at English ang opisyal na wika. Luxembourg naman ang wika ng maliit na bansa (Hiram na salita mula sa salitang pranses ang Luxembourish) </p>
+ <p> <b>MALAYSIA -</b> Wika Malay (opisyal na wika) Malay at English ang parehong ginagamit sa panturo. Mandarin (tinuturo sa mga may lahing tsino). </p> 
+ <p> <b>Mauritius -</b> Bansang tinuturing na bahagi ng Africa. Wika Eglish at Pranses (wika ng paaralan) Mauritian Chreole (Wikang umusbong sa Pranses ngunit hindi naiintindihan ng mga Pranses). </p>
+ <p> <b>Singapore -</b> Wika Mandarin Chinese, Malay at Tamil (opisyal na wika ng Singapore) English (Lingua Franca) </p>
+ <p> <b>South Africa -</b> Labing isa (11) ang opisyal na wika. English (Lingua Franca) Afrikan (wikang gamit sa kanlurang kontinente). </p>
+ <p> <b>Suriname -</b> Hilagang America Wika Dutch (Paaralan, kalakaran at midya) Sranan Tongo (Sranan) (wika na may impluwensyang dutch). </p>
+ <br> <b>1.3 Maunawaan ang Mother-Tongue-Based Multilingual Education</b> 
+ <br> <b>Hamon ng Mother-Tongue-Based Multilingual Education</b>
+ <p> Habang nililinang at pinauunlad ang Filipino, nang naluklok na Pansamantalang Punong Komisyoner ng KWF si Dr. Ricardo Ma. Duran Nolasco ay naging direksiyon ng ahensiya ang pagtangkilik sa multilingguwalismo. Katuwang ang Kongresista o Representatibo na si Kgg. at abugado magtanggol Gunigundo ng Valenzuela. Ang Orihinal na House bill blg. 4719 na humihikayat na ipagamit ang unang isinumite sa Senado noong 2008 na ang paksa ay ang pagpapagamit sa unang wikang bilang midyum ng pagtuturo sa mga basikong edukasyon Kinatigan ito ng kagawaran ng Edukasyon at isport sa pamamagitan ng paglalabas ng Ordinansa Blg. 74 na nagtatalakay sa pagsasainstitusyon ng paggamit ng unang wika ng mga mag-aaral. Napakalaki ng naging epekto ng pangsasakatuparan ng Mother-Tonguebased, Multilinggual Education o MTB-MLE. Isa iton sa mga naging bagong direksyon sa pag-iimplementa ng K to 12. </p>
+                    </div>
+                `
+            },
+            {
+                id: 3,
+                title: "Aralin 2: Wikang Filipino ang Wikang Bayan at maging ng Akademya",
+                content: `
+                  
+                       <div class="lesson-text">
+                      <p>Ayon kay G. Eugene Y. Evasco ang anomang wika sa daigdig tulad ng wikang Filipino, ay nalilikha, nililinang, pinagyayaman at hindi lamang basta isinilang. Kaya naman masasabi ring ang wika ay may kakayahang makiangkop sa pagbabagong nagaganap sa lipunang kayang pinagsisilbihan.Malinaw na pinapahayag ni E. Evasco ang kalakasan ng wika pagdating sa usapin ng paggamit dito sa umiiral na buhay ng isang Bansa. Sa Panahon ni dating pangulong Gloria Makapagal-Arroyo ginawa ang Pang-ehekutibo (E.O) 210 na nag-aanyas na ibalik ang Ingles bilang wikang panturo sa bansa. Nilimitahan ang paggamit ng wikang Filipino at itinakda nalamang ito bilang wikang panturo sa mga asignaturang Filipino at araling Panlipunan. Sinusugan pa ito ng kongreso nang ipasa ang House Bill 4701 “Act Prescribing English as Medium of Instruction in the Philippines School”
+Taliwas ito sa mga obsebasyon ng mga kritiko. Pinatunayan ito ng pag-aaral ng UNITED NATION (UN) Ayon sa United Nation (UN) The Organization is fully aware of the crucial importance of languages when seen against the many challenges that humanity will have to face over the next few decades. Languages are indeed essential to the identity of group and individual and to their peaceful coexistence. </p>
+                <br> <b>1.2 Makapagpahayag ng mga makabuluhang kaisipan sa pamamagitan ng tradisyonal at modernong midya</b> </p>
+                <br> Marami ang nanatiling buo ang paniniwala na ang mga umiiral na wika sa Pilipinas ay ang sagot sa mga suliranin ng Pambansang Edukasyon. </p>
+Ayon kay Dr. David San Juan ng konvinor ng Tanggol Wika at dalubguro sa Pamantasan ng De La Salle, ang Wikang Pambansa ang tanging wika ng mga kilusang panlipunan. Ang Pagsilang ng Tanggol Wika </p> 
+sa inilabas na Memo ng CHED na CMO #20, Serye ng 2013 tahasang inaalis ang mga asignaturang sa wika, agham panlipunan at kasaysayan sa antas ng tersyaryo.</p>
+                <img src="https://assets.onecompiler.app/43hsvrazv/43ht5ytbu/4th%20pec.png" alt="Lesson Image" width="400" style="display: block; margin: 20px auto;"> 
+                <p> 
+<br> Dr. David San Juan (Dalubguro ng Pamantasang De La Salle University 
+(Ang larawan ay kinuha sa Google.com)
+Matapos ilabas ang CMO #20, serye ng 2013 nagkaroon ng protesta at pagkilos napinangunahan ng Tanggol Wika o mga Tagapag tanggol sa wika na pinangungunahan ni Dr. Davin San Juan ng De La Salle University
+Naglabas si Dr. David San Juan ng isang Papel na may Pamagat na Alyansa ng Mga Tagapagtanggol bg Wikang Filipino/TANGGOL WIKA Internal na kwento, Mga Susing Argumento at Dokumento (2-14-2017) </p>
+<b>ARGUMENTO 1:</b> WALANG MAKABULUHANG ARGUMENTO ANG MGA ANTI-FILIPINO – ANG KAMPONG TANGGAL WIKA – SA PAGPAPATANGGAL NG FILIPINO AT PANITIKAN </p>
+<b>ARGUMENTO 2:</b> DAPAT MAY FILIPINO AT PANITIKAN SA KOLEHIYO DAHIL ANG IBANG ASIGNATURA NA NASA JUNIOR AT/O SENIOR HIGH SCHOOL AY MAY KATUMBAS PA RIN SA KOLEHIYO </p>
+<b>ARGUMENTO 3:</b> ANG FILIPINO AY DISIPLINA, ASIGNATURA, BUKOD NA LARANGAN NG PAG-AARAL, AT HINDI SIMPLENG WIKANG PANTURO LAMANG </p>
+<b>ARGUMENTO 4:</b> PARA MAGING EPEKTIBONG WIKANG PANTURO ANG FILIPINO, KAILANGANG ITURO AT LINANGIN DIN ITO BILANG ASIGNATURA </p>
+<b>ARGUMENTO 5:</b> BAHAGI NG COLLEGE READINESS STANDARDS ANG FILIPINO AT PANITIKAN </p>
+<b>ARGUMENTO 6:</b> SA IBANG BANSA, MAY ESPASYO RIN SA KURIKULUM ANG SARILING WIKA BILANG ASIGNATURA, BUKOD PA SA PAGIGING WIKANG PANTURO NITO </p>
+<b>ARGUMENTO 7:</b> BINIGYAN NG DEPED AT CHED NG ESPASYO ANG MGA WIKANG DAYUHAN SA KURIKULUM, KAYA LALONG DAPAT NA MAY ESPASYO PARA SA WIKANG PAMBANSA </p>
+<b>ARGUMENTO 8</b>: PINAG-AARALAN DIN SA IBANG BANSA ANG FILIPINO – AT MAY POTENSYAL ITONG MAGING ISANG NANGUNGUNANG WIKANG GLOBAL – KAYA LALONG DAPAT ITONG PAG-ARALAN SA PILIPINAS </p>
+<b>ARGUMENTO 9:</b> MALAPIT ANG FILIPINO SA BAHASA MELAYU, BAHASA INDONESIA, AT BRUNEI MALAY, MGA WIKANG GINAGAMIT SA MALAYSIA, SINGAPORE, INDONESIA, AT BRUNEI, NA MGA BANSANG KASAPI NG ASEAN, KAYA’T MAHALAGANG WIKA ITO SA KONTEKSTO MISMO NG ASEAN INTEGRATION </p>
+<b>ARGUMENTO 10</b>: MABABA PA RIN ANG AVERAGE SCORE NG MGA ESTUDYANTE SA FILIPINO SA NATIONAL ACHIEVEMENT TEST (NAT) </p>
+<b>ARGUMENTO 11:</b> FILIPINO ANG WIKA NG MAYORYA, NG MIDYA, AT NG MGA KILUSANG PANLIPUNAN: ANG WIKA SA DEMOKRATIKO AT MAPAGPALAYANG DOMEYN NA MAHALAGA SA PAGBABAGONG PANLIPUNAN </p>
+<b>ARGUMENTO 12</b>: MULTILINGGWALISMO ANG KASANAYANG AKMA SA SIGLO 21 </p>
+<b>ARGUMENTO 13:</b> HINDI PINAUNLAD, HINDI NAPAUNLAD AT HINDI MAPAPAUNLAD NG PAGSANDIG SA WIKANG DAYUHAN ANG EKONOMYA NG BANSA </p>
+<b>ARGUMENTO 14:</b> MAY SAPAT NA MATERYAL AT NILALAMAN NA MAITUTURO SA FILIPINO AT PANITIKAN SA KOLEHIYO </p>
+<br> <b>Panunuri sa Kahalagahan ng Wikang Filipino</b> </p>
+<p> Ayon kay Bienvenido Lumbera Sa pagtanggap natin sa wika, pumapaloob tayo sa isang lipunan at nakikiisa sa mga taong naroon. Samakatuwid ang kamalayan natin bilang indibiduwal at karugtong ng kamalayan ng iba sa lipunan. Kapag may kapanguarihang sumakop sa kamalayan ng kapwa natin sa lipunan, kasama tayong napapasailalim sa nasabing kapangyarihan, ang sariling wika ay hindi nakakabawas ng katalinuhan at katangahan kung gagamitin sa iba’t ibang larangan, Kung ay usapin ay karunungan. </p>
+
+                </div>
+                
+                `
+             },
+             {  
+               id: 4,
+                title: "Aralin 3: Filipino bilang Wika ng saliksik sa iba't-ibang larang panimula",
+                content:  `
+                  
+                       <div class="lesson-text">
+                       <p> Maisapraktika at mapaunlad pa ang mga batayang kasanayan sa pananaliksik
+Halina’t ilamin ang kinalaman ng mga salita sa Pananaliksik sa iba’t ibang Larang. </p> 
+<br> <b>FILIPINO BILANG WIKA NG SALIKSIK SA IBA’T IBANG LARANG</b> </p> 
+<p>Sa pagtalakay sa Filipino bilang wika ng saliksik, hindi maisasantabi ang pagtalakay sa intektwalisasyon ng Filipino. Iniaangat ng bayan ang antas ng wika sa estado nagagamit ito sa intelekwal na usapin at intelektwal na materyales o babasahin.
+Kinikilala ang pananaliksik bilang refleksiyon ng talino at husay ng mananaliksik, matagal nang nakasusulat ng pananaliksik sa Filipino ang mga Pilipino lalo na ang mga nakapagdalubhasa sa Filipino.
+Marami nang mga aklat sa matematika at Agham ang tinangkang isulat sa Filipino. May mga aklat pangmedisina o pangkalusugan ang naisulat sa Filipino. </p> 
+ 
+ <br> <b>Pananaliksik sa Agham at teknolohiya</b>
+<p>Marahil kung walag pananaliksik ay atrasado pa rin ang ating pamumuhay sa kasalukuyan. Ang mga kagamitang pantahanan ay mas higit na nagpapadali sa mga gawain ng bawat miyembro ng pamilya. Higit na nagkakaroon ng mabilis na komunikasyon ang bawat isa kahit na nasa malayong distansya bunga ng pagkakatuklas ng mga cellphone.</p>
+ <br> <b>Pananaliksik sa Negosyo at Industriya</b>
+ <p> Ang pagpapatupaf ng mga kapasyahan sa isang negosyo ay batay na rin sa resulta ng maingat na pagpaplano at pagsusuri kung aling pananaliksik ang higit na angkop sa lalong ikaangat ng negosyo.</p>
+ <br> <b>Pananaliksik sa Edukasyon</b>
+ <p> Higit sa lahat mahalaga ang pananaliksik sa larangan ng edukasyon. Mahalaga makapagtatag ng matibay na pundasyon ng karunungan sa isip ng mga mag-aaral sa pamamagitan ng pagtuklas ng mga pamamaraang lalong makapagpapaunawa sa mga mag-aaral ng kanilang lektura. Ang inobasyon sa pasilidad at kagamitang panturo ay nakasalalay din sa gagawing pagtuklas sa pananaliksik ng mga implikasyon nnito sa larangang akademiko. </p>
+ <br>  <b>Pananaliksik sa Politika</b>
+ <p> Dito higit na kailangan ng maingat na pag-aaral at pag-iimbestiga sa larangang ito ay walang hanggang ang pagtuklas ng mga kaparaanan sa nagpapatatag ng ekonomiya at kalagayang pampulitika sa bansa.
+Sa pananaw ng mga ekonomista ang pagkakaroon ng matatag na ekonomiya at maaring maging daan sa pagsasaayos ng kalagayan ng pampulitika ng bansa. </p>
+
+<br> 1.2 Makapagbasa at makapagbuod ng impormasyon, estadistika, datos atbp. mula sa mga babasahing nakasulat sa Filipino sa iba’t ibang larangan
+Pananaliksik ng mga Guro </p> 
+<p> Ang mga sumusunod na halimbawa ng pananaliksik ng mga Guro ay ilan lamang sa mga gawa ng Guro. (Nasa Libro ng Filipino sa Iba’t ibang disiplina ang iba pang halimbawa Pahina 50-63 </p> 
+ <img src="https://assets.onecompiler.app/43hsvrazv/43ht5ytbu/w2%201st.png" alt="Lesson Image" width="400" style="display: block; margin: 20px auto;">
+   <br> <b>Pananaliksik ng mga mag-aaral</b> </p> 
+    
+    <p> Ang mga sumusunod na halimbawa ng pananaliksik ng mga Guro ay ilan lamang sa mga gawa ng mag-aaral. (Nasa Libro ng Filipino sa Iba’t
+Ibang disiplina ang iba pang halimbawa Pahina 63-69. </p> 
+  <img src="https://assets.onecompiler.app/43hsvrazv/43ht5ytbu/w3%202nd.png" alt="Lesson Image" width="400" style="display: block; margin: 20px auto;">
+                        </div>
+                
+                `
+             },
+             { 
+                id: 5,
+                title: "Aralin 4: Mga Terminong Ingles mula sa iba't-ibang Larangang Isinalin sa Filipino",
+                content: `  
+                       <div class="lesson-text">
+                       <p> Isa sa mga dapat gawin upang makapanaliksik sa Filipino ay ang bigyang-malasakit ang mga teminong Ingles para sa iba’t ibang
+larangan na isinalin sa Filipino. Narito ang ilang halimbawa ng
+mungkahing termino.</p> 
+<br> <b>Mga Katawagan sa Edukasyong Panteknolohiya at Pangkabuhayan</b> </p>
+ <style>
+        .table-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .term-box {
+            border: 2px solid #9370DB;
+            border-radius: 10px;
+            padding: 20px;
+            width: 350px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .term-header {
+            background-color: #e6e6fa;
+            color: #5d4037;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .term-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .term-row:last-child {
+            border-bottom: none;
+        }
+        
+        .english-term {
+            font-weight: bold;
+            color: #5d4037;
+        }
+        
+        .filipino-term {
+            color: #9370DB;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="table-container">
+    <!-- First Box Table -->
+    <div class="term-box">
+        <div class="term-header">English to Filipino Terms</div>
+        
+        <div class="term-row">
+            <span class="english-term">Accountant</span>
+            <span class="filipino-term">Tagatuos</span>
+        </div>
+        
+        <div class="term-row">
+            <span class="english-term">Anatomy</span>
+            <span class="filipino-term">Anatomiya</span>
+        </div>
+        
+        <div class="term-row">
+            <span class="english-term">Arc</span>
+            <span class="filipino-term">Arko</span>
+        </div>
+        
+        <div class="term-row">
+            <span class="english-term">Athlete's Foot</span>
+            <span class="filipino-term">Alipunga</span>
+        </div>
+    </div>
+    
+    <!-- Second Box Table -->
+    <div class="term-box">
+        <div class="term-header">English to Filipino Terms</div>
+        
+        <div class="term-row">
+            <span class="english-term">Auditor</span>
+            <span class="filipino-term">Tagasuri</span>
+        </div>
+        
+        <div class="term-row">
+            <span class="english-term">Bacteriology</span>
+            <span class="filipino-term">Baktirilohiya</span>
+        </div>
+        
+        <div class="term-row">
+            <span class="english-term">Body</span>
+            <span class="filipino-term">Kaha/katawan</span>
+        </div>
+        
+        <!-- Empty row for consistent spacing -->
+        <div class="term-row" style="visibility: hidden;">
+            <span>&nbsp;</span>
+            <span>&nbsp;</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+<p> Nasa librong Filipino sa Iba’t ibang disiplina ang nilalaman ng buong halimbawa pahina 70-81). </p> 
+
+<br> <b>Mga Katawagan sa Pagbobrodkas (Broadcasting)</b> </p> 
+<style>
+        .table-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        .term-box {
+            border: 2px solid #4b0082;
+            border-radius: 10px;
+            padding: 20px;
+            width: 400px;
+            background-color: #f8f8ff;
+            box-shadow: 0 4px 8px rgba(75, 0, 130, 0.1);
+        }
+        
+        .term-header {
+            background-color: #4b0082;
+            color: white;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+        
+        .term-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e6e6fa;
+        }
+        
+        .term-row:last-child {
+            border-bottom: none;
+        }
+        
+        .english-term {
+            font-weight: bold;
+            color: #4b0082;
+            width: 45%;
+        }
+        
+        .filipino-term {
+            color: #9370db;
+            width: 45%;
+            text-align: right;
+        }
+        
+        .section-title {
+            text-align: center;
+            color: #4b0082;
+            margin: 40px 0 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+<h1 class="section-title">Mga Katawagan sa Pagbobrodkas (Broadcasting)</h1>
+
+<div class="table-container">
+    <!-- First Box Table -->
+    <div class="term-box">
+        <div class="term-header">English ↔ Filipino Terms</div>
+        
+        <div class="term-row">
+            <span class="english-term">Abnormal Glow Discharge</span>
+            <span class="filipino-term">Palyadong Ilaw</span>
+        </div>
+        
+        <div class="term-row">
+            <span class="english-term">Accelerating Anode</span>
+            <span class="filipino-term">Anodong Pampalakas</span>
+        </div>
+        
+        <div class="term-row">
+            <span class="english-term">Accelerating Electrode</span>
+            <span class="filipino-term">Elektrod na Pampalakas</span>
+        </div>
+        
+        <div class="term-row">
+            <span class="english-term">Acceleration</span>
+            <span class="filipino-term">Pagpapabilis</span>
+        </div>
+    </div>
+    
+    <!-- Second Box Table -->
+    <div class="term-box">
+        <div class="term-header">English ↔ Filipino Terms</div>
+        
+        <div class="term-row">
+            <span class="english-term">Acoustic</span>
+            <span class="filipino-term">Akustika</span>
+        </div>
+        
+        <div class="term-row">
+            <span class="english-term">Air Time</span>
+            <span class="filipino-term">Oras ng Palatuntunan</span>
+        </div>
+        
+        <div class="term-row">
+            <span class="english-term">Aperture</span>
+            <span class="filipino-term">Guwang</span>
+        </div>
+        
+        <div class="term-row">
+            <span class="english-term">Auction</span>
+            <span class="filipino-term">Isubasta</span>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+    <p> Nasa librong Filipino sa Iba’t ibang disiplina ang nilalaman ng buong halimbawa pahina 70-81) </p>
+    
+<br> <b>Mga Katawagan sa Adbertaysing</b>
+
+<meta charset="UTF-8">
+    <title>English to Filipino Terms</title>
+    <style>
+        .table-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .term-box {
+            border: 2px solid #9370DB;
+            border-radius: 10px;
+            padding: 20px;
+            width: 350px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .term-header {
+            background-color: #e6e6fa;
+            color: #5d4037;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .term-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .term-row:last-child {
+            border-bottom: none;
+        }
+
+        .english-term {
+            font-weight: bold;
+            color: #5d4037;
+        }
+
+        .filipino-term {
+            color: #9370DB;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="table-container">
+    <div class="term-box">
+        <div class="term-header">English to Filipino Terms</div>
+
+        <div class="term-row">
+            <span class="english-term">Advertisement</span>
+            <span class="filipino-term">Anunsyo</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">A la carte service</span>
+            <span class="filipino-term">Espesyal na serbisyo</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Box</span>
+            <span class="filipino-term">Kahon</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Cartoon</span>
+            <span class="filipino-term">Kartun</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Logo</span>
+            <span class="filipino-term">Tatak</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Market</span>
+            <span class="filipino-term">Mamimili</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Perception</span>
+            <span class="filipino-term">Pananaw</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Wants</span>
+            <span class="filipino-term">Kagustuhan</span>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+<p> (Nasa librong Filipino sa Iba’t ibang disiplina ang nilalaman ng buong halimbawa Pahina 70-81) </p> 
+
+<br> Mga Katawagan sa Pamamahayag (Journalism) </p> 
+<meta charset="UTF-8">
+    <title>English to Filipino Terms</title>
+    <style>
+        .table-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .term-box {
+            border: 2px solid #9370DB;
+            border-radius: 10px;
+            padding: 20px;
+            width: 350px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .term-header {
+            background-color: #e6e6fa;
+            color: #5d4037;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .term-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .term-row:last-child {
+            border-bottom: none;
+        }
+
+        .english-term {
+            font-weight: bold;
+            color: #5d4037;
+        }
+
+        .filipino-term {
+            color: #9370DB;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="table-container">
+    <div class="term-box">
+        <div class="term-header">English to Filipino Terms</div>
+
+        <div class="term-row">
+            <span class="english-term">Advancer</span>
+            <span class="filipino-term">Paunang Balita</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Agate</span>
+            <span class="filipino-term">Sukat ng tipo</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Alive</span>
+            <span class="filipino-term">Malinaw na tipo</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Anti-sit-off</span>
+            <span class="filipino-term">Pangapit-tinta</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Ascender</span>
+            <span class="filipino-term">Maliit na letra (lower case)</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Banner</span>
+            <span class="filipino-term">Bandera</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Beard</span>
+            <span class="filipino-term">Pagpupuwang</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Bending roller</span>
+            <span class="filipino-term">Rodilyo</span>
+        </div>
+    </div>
+</div>
+
+</body>
+</html> 
+
+ <p> (Nasa librong Filipino sa Iba’t ibang disiplina ang nilalaman ng buong halimbawa Pahina 70-81) </p> 
+ <br> <b>Mga Katawagan sa Pelikula</b> 
+ 
+ <meta charset="UTF-8">
+    <title>English to Filipino Terms</title>
+    <style>
+        .table-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .term-box {
+            border: 2px solid #9370DB;
+            border-radius: 10px;
+            padding: 20px;
+            width: 350px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .term-header {
+            background-color: #e6e6fa;
+            color: #5d4037;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .term-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .term-row:last-child {
+            border-bottom: none;
+        }
+
+        .english-term {
+            font-weight: bold;
+            color: #5d4037;
+        }
+
+        .filipino-term {
+            color: #9370DB;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="table-container">
+    <div class="term-box">
+        <div class="term-header">English to Filipino Terms</div>
+
+        <div class="term-row">
+            <span class="english-term">Act</span>
+            <span class="filipino-term">Yugto</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Adaptation</span>
+            <span class="filipino-term">Halaw</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Ad lib</span>
+            <span class="filipino-term">Ad lib</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Animate</span>
+            <span class="filipino-term">Pagbibigay-buhay</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Antagonist</span>
+            <span class="filipino-term">Kontrabida</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Camera report</span>
+            <span class="filipino-term">Log</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Candid</span>
+            <span class="filipino-term">Nakaw na kuha</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Cans</span>
+            <span class="filipino-term">Earphones</span>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+<p> (Nasa librong Filipino sa Iba’t ibang disiplina ang nilalaman ng buong halimbawa Pahina 70-81 </p> 
+<br> <b>Mga Katawagan sa Kasaysayan</b> </p>
+
+<meta charset="UTF-8">
+    <title>English to Filipino Terms</title>
+    <style>
+        .table-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .term-box {
+            border: 2px solid #9370DB;
+            border-radius: 10px;
+            padding: 20px;
+            width: 350px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .term-header {
+            background-color: #e6e6fa;
+            color: #5d4037;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .term-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .term-row:last-child {
+            border-bottom: none;
+        }
+
+        .english-term {
+            font-weight: bold;
+            color: #5d4037;
+        }
+
+        .filipino-term {
+            color: #9370DB;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="table-container">
+    <div class="term-box">
+        <div class="term-header">Spanish to Filipino Terms</div>
+
+        <div class="term-row">
+            <span class="english-term">Abanderado</span>
+            <span class="filipino-term">Abanderado</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Acuerdo</span>
+            <span class="filipino-term">Akuwerdo</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Alcalde mayor</span>
+            <span class="filipino-term">Alkalde mayor</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Almacen</span>
+            <span class="filipino-term">Bodega/Kamalig</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Amanuensis</span>
+            <span class="filipino-term">Kalihim</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Angelus</span>
+            <span class="filipino-term">Orasyon</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Archives</span>
+            <span class="filipino-term">Lagakan/Sinupan</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Armor</span>
+            <span class="filipino-term">Baluti</span>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+<p> (Nasa librong Filipino sa Iba’t ibang disiplina ang nilalaman ng buong halimbawa pahina 70-81)
+Kung susuriin ang mga mungkahing salita sa kolum ay tila mahirap tanggapin o maaring sabihin na hindi na angkop sa panahon.
+Gayunpaman, marapat na bigyang-pagkakataon ang paggamit sa mga ito upang magkaroon ng kongkretong ebidensiya upang mapaunlad, marebisa at maisapraktika ang mga mungkahing salin ng termino.
+Ayon kay P.L Strawson ang wika ay sumusunod lamang sa pagbabago ng mga bagay. Kapag nagbago ang bagay, nag-iiba rin ang wika.
+Mga kabataan ang mga pangunahing naapektuhan ng mga uri ng
+pahayag na nababasa gayudin ang mga ginagamit sa Social Media sa haba ng panahong iginugugol ng mga kabataan sa paggamit ng kompyuter,
+Ang mga terminog Filipino na inasimila sa ingles o tunay na mga terminong Ingles na ginawang inisyal o pinaikli upang maging jargon ng Social media lalo na sa mga social networking sites </p> 
+
+
+<br> <b>Malaman ang iba't-ibang salita na nabuo sa Social Media</b>
+<br> <p> MGA AKRONIM/KATAWAGANG PANSOSYALMIDYA </p> 
+<meta charset="UTF-8">
+    <title>Mga Akronim/Katawagang Pansosyalmidya</title>
+    <style>
+        .table-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .term-box {
+            border: 2px solid #9370DB;
+            border-radius: 10px;
+            padding: 20px;
+            width: 350px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .term-header {
+            background-color: #e6e6fa;
+            color: #5d4037;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .term-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .term-row:last-child {
+            border-bottom: none;
+        }
+
+        .english-term {
+            font-weight: bold;
+            color: #5d4037;
+        }
+
+        .filipino-term {
+            color: #9370DB;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="table-container">
+    <div class="term-box">
+        <div class="term-header">Mga Akronim / Katawagang Pansosyalmidya</div>
+
+        <div class="term-row">
+            <span class="english-term">ATM</span>
+            <span class="filipino-term">At this moment</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">BAE</span>
+            <span class="filipino-term">Before Anyone Else</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">BFF</span>
+            <span class="filipino-term">Best Friend Forever</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">HBD</span>
+            <span class="filipino-term">Happy birthday</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">LMK</span>
+            <span class="filipino-term">Let me know</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">LOL</span>
+            <span class="filipino-term">Laugh out Loud</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">JGH</span>
+            <span class="filipino-term">Just Got Home</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">LMAO</span>
+            <span class="filipino-term">Laughing My Ass Off</span>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+ 
+ <br> <b>MGA AKRONIM/KATAWAGANG PANSOSYALMIDYA</b> </p> 
+ <meta charset="UTF-8">
+    <title>Mga Akronim/Katawagang Pansosyalmidya</title>
+    <style>
+        .table-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .term-box {
+            border: 2px solid #9370DB;
+            border-radius: 10px;
+            padding: 20px;
+            width: 400px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .term-header {
+            background-color: #e6e6fa;
+            color: #5d4037;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .term-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #ddd;
+            gap: 10px;
+        }
+
+        .term-row:last-child {
+            border-bottom: none;
+        }
+
+        .english-term {
+            font-weight: bold;
+            color: #5d4037;
+            flex: 1;
+        }
+
+        .filipino-term {
+            color: #9370DB;
+            font-style: italic;
+            flex: 2;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+
+<div class="table-container">
+    <div class="term-box">
+        <div class="term-header">Mga Akronim / Katawagang Pansosyalmidya</div>
+
+        <div class="term-row">
+            <span class="english-term">Dramarama</span>
+            <span class="filipino-term">Sunod-sunod na mga drama serye, pinauso ng GMA</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Havey</span>
+            <span class="filipino-term">Nakakatuwa; pinauso ni Vice Ganda</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Keribels</span>
+            <span class="filipino-term">Kaya yan</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Kontrabida</span>
+            <span class="filipino-term">Katunggali ng bida</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">Koreanovela</span>
+            <span class="filipino-term">Mga serye mula sa Korea</span>
+        </div>
+        <div class="term-row">
+            <span class="english-term">PBB-teens</span>
+            <span class="filipino-term">Mga dalaga’t binatang maagang nagpapakita ng pagkagusto sa isa’t isa</span>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+<br> <p> Narito ang mga ilang halimbawa ng mga Salitang nalikha ng mga kilalang personalidad sa larangan ng telebeisyon at pelikula ,(Nasa inyong Libro sa Filipino sa Iba’t ibang disiplina ang kabuoan ng mga halimbawa. Pahina: 86-87
+Salakas ng impluwensiya ng midya sa bansa, mailalahad ang mga sumusunod na obserbasyon: (a) Napaghahalo ang mg salitang Ingles sa Filipino, na nagiging dahila upang magkaroon ng mga panibagong salita. (b) ang mga salita ng Telebisyon ay nagiging bahagi na ng bokabularyong Filipino. (c) pinapaikli nito ang mga salita ng mahahabang salitang Filipino (d) Nagiging pamalit ang mga salita ng Telebisyon, sa mga salitang nakalimtan na o may restrikto na bawal sabihin sa midya. </p> 
+
+
+                       
+                         </div>
+                
+                `
+             },
+             {  
+                id: 6,
+                title: "Aralin 5: Filipino sa Bansang Industriyalisayon",
+                content: ` 
+                       <div class="lesson-text">
+                       
+                       <p> Sa proseso ng pagtatatag at pagpapaunlad ng mga industriya na magpapasigla sa  ekonomiya at tutustos sa pang-ekonomiyang pangangailangan ng isang bansa. Tungo sa transformasyon ng ekonomiya mula agrarian patungong industriya. </p> 
+<br> <b>Mabibigat na industriya</b> </p>
+ <p> Salik sa paglikha ng mga makina at sangkap sa produksyon. </p>
+<br> <b>Intermedyong industriya</b> </p>
+<p> Lilikha ng mga spare parts para sa produksyon </p>
+<br> <b>Magagaan na industriya</b> </p>
+<p> Lilikha ng mga produksyong pangkunsumo ng mayayaman Sa indutriya nagmumula ang mga kagamitang kinakailangan ng mamamayan. Magbibigay rin ng batayang pangangailangan at sapat na trabaho Ang pag-unlad ng kaalaman at teknolohiya  ay mapapabilis pang lalo sa  pag-unlad ng produksyon </p>
+<br> <b>Malawak na kalupaan sa bansa</b> </p>
+<p>Mataba at pabor sa agrikulturaMahigit 12.4M ektaryang lupang agricultural ang tinataniman ng palay,niyog, mais, saing, tubo, cassava, manga, rubber at iba pa. </p>
+<br> <b>1.2 Malaman ang Kahalagayan ng Industriyaliyasyon</b> </p>
+<p> Napakasagana ng ating aquatic resources. 200 milyong ektaryang karagatan, 421 na ilog, at mahigit 69 na lawa Noong 2011, ikalima ang pilipinas sa prodyuser ng isda sa buong mundo. Likas na mayaman ang Pilipinas sa iba’t ibang mineral Panglima sa buong mundo sa dami ng yamang mineral Aabot sa 58.1 bilyong metro tonelada Ang reserbang mineral sa bansa. Ikatatlo tayo sa  pagprodyus ng ginto. Ika-apat sa copper, ikalima sa nickel, at ika-anim sa chromite sa buong mundo. Maraming mapagkukunan ng enerhiya Natural gas, geothermal, hydrothermal, solar, windTinatayang aabot sa 39.5T cubic feet ang reserbang natural gas ng bansa. Sa geothermal resources naman ay airing umabot ng 2,600MW ang maaaring malikhang enerhiya. Maari ring pagkunan ng hydrothermal energy ang mahigit na 400 na ilog sa bansa. Sa taya, aabot ng 10,097MW ang potential energy na pwedeng ma-generate mula sa ating mga hydropower plants. Malaking potensyal ng ating human resources at aabot ng 26 milyon ang skilled workers na may trabaho sa bansa. Sa 26M na skilled workers ng bansa, 2 milyon ditto ay mga propesyunal. Wala pa rito ang mga pwersa sa produksyon na hindi makakuha o hindi makapagtrabaho. </p>
+<br> <b> 1.3 Malaman ang Kakulangan ng Pilipinas pagdating sa NI</b> </p>                 
+<br> <b>Ano ang balakid sa pagtataguyod ng NI sa Pilipinas?</b> </p>
+<p> Hinubog an gating ekonomiya ng mga malalaking bansa, lalo na ang US, upang maging supplier ng hilaw na materyales at lakas paggawa sa kanilang bayan, Sa ganitong kalagayan, nawalan ng pagkakataon na sumigla ang mga lokal na industriya ng bansa.</p> 
+<br> <b>Paano isasagawa ang NI sa Pilipinas?</b> </p>
+<p> Pagpapaunlad ng agrikultura Reporma sa lupa Mekanisasyon sa agrikultura Pagtatayo ng mabibigat ng industriya Industriya ng bakal Industriya ng langis Pagpapatibay at pag-reorient sa mga magagaan na industriya Textile garmet food processing. </p>
+<br> <b>Paano mapapaunlad ang S&T sa ilalim ng NI?</b> </p>
+<p> Bansot at atrasado ang kalagayan ng science and technology (S&T) sa Pilipinas. Isang sanhi nito ay ang kawalan ng batayang mga industriya na sana’y mangangailangan ng bagong kaalaman at kagamitan para sa pagpapahusay ng produksyon. </p>
+<br> <b>Mahahalagang punto na dapat isaalang-alang sa NI</b> </p>
+<p> Kailangan ang maayos ay masusing pag-aaral, pagpaplano at pagpapatakbo ng ekonomiya. Dapat nakabatay sa pangangailangan ng mamamayan at hindi sa dayuhan. Siguraduhin ang matalino at likas-kayang paggamit ng mga rekursong pangkalikasan. Iwasan ang lahat ng mapandambong na gawi sa industriya ng pagmimina, pagtotroso at iba pa. Respetuhin ang karapatan ng mamamayan para sa ligtas at mapayapangmamumuhay. Kabilang dito ang karapatan ng pambansang  minorya na magpasaya sa sarili at lumahok sa pagpaplano sa ekonomiya. Paunlarin at payabungin ang ekonomiyang rural. Kaugnay ng tunay na reporma sa lupa, ang NI ay mangangahulugan ng pag-desentralisa ng kaunlaran mula sentrong urban patungong kanayunan. Siguraduhin ang pantay na relasyon sa anumang papasuking kasunduang pangkalakalan sa sinumang bansa. Ibasura ang mga di pantay na kasuduang nagdudulot ng kahirapan sa mga mamamayan. </p>
+<br> <b>Mga dapat gawin para maisulong ang NI</b> </p>
+<p> Ang tunay at makabuluhang pagbabago at hindi makakamit nang madalian. Nasa ating mga kamay ang pagsulong ng pagbabago ang pambansang  industriyalisasyon. Kaugnay ng NDFP-GPH Peace Talks kung saan ang NI ang isang mayoryang laman ng agenda para sa repormang sosyo-ekonomiko. Kailangan ang maigting na pakikihalok ng mamamayan para iparinig  ang ating mga panawagan sa parehong panig. </p> 
+
+                        </div>
+                
+                `
+             },
+             {  
+               id: 7,
+                title: "Aralin 7: Filipino sa Humanidades",
+                content:   ` 
+          
+                       <div class="lesson-text">
+                       
+                <p> <b>1.1  Maunawaan ang mga liriko ni Garry Granada</b> </p>
+                <p>Sa usapin ng sining ay nakaagapay ang wikang Filpino. Damang-dama ng mga mamayang Pilipino ang mga awiting pinoy na tumatatak hindi lamang sa isipan bagkos maging sa puso ng mga Pilipino.</p>
+                <p>Isa ang awiting “Anak” ni Freddie Aguilar na sumikat hindi lamang sa Pilipinas kundi pati sa ibang bansa, nag karoon pa ito ng mga salin sa iba’t ibang wika sa mundo</p>
+                
+                
+                <img src="https://assets.onecompiler.app/43hsvrazv/43ht5ytbu/w7%201st.png" alt="Lesson Image" width="400" style="display: block; margin: 20px auto;">
+                
+                <p>Dahil sa pagkahilig ng mga Pilipino sa pag-awit nagiging mabisang instrumento ito sa paghahatid ng mensahe sa madla. Ginising ng awiting “MAGKAISA” noong 1986 matapos ang mapayapang rebolusyon ng mga Pilipino laban sa pagpapatalsik sa sinasabi noong diktaduryang Pangulong Ferdinand Marcos.</p>
+               
+               
+                <img src="https://assets.onecompiler.app/43hsvrazv/43ht5ytbu/w7%202nd.png" alt="Lesson Image" width="400" style="display: block; margin: 20px auto;">
+                <p>Isa si Gary Granada sa mga mahuhusay na kompositor at mang-aawit sa Pilipinas</p>
+                
+                <img src="https://assets.onecompiler.app/43hsvrazv/43ht5ytbu/w7%203rd.png" alt="Lesson Image" width="400" style="display: block; margin: 20px auto;">
+                <p>Nakalikha siya ng mga awiting kumukorot sa puso at isip  ng mga mamayang Pilipino, Dahil sa mga awitin na  isinulat ni Gary Granada nakagawa si Dr. Joel Malabanan ng  Unibersidad ng Pilipinas nang isang pananliksik tungkol sa awitin ni Gary Granada</p>
+                
+                <img src="https://assets.onecompiler.app/43hsvrazv/43ht5ytbu/w7%204th.png" alt="Lesson Image" width="400" style="display: block; margin: 20px auto;">
+                
+                <p> <b>1.2 Malaman ang halaga ng paggamit ng kanta sa pakikibaka</b> </p> 
+                <br> ANG MGA LIRIKO NI GARY GRANADA BILANG REPLEKSYON NG   PULITIKA, NASYONALISMO AT KALAGAYAN NG BANSA   (Bahagi ng pananaliksik ni Joel Costa Malabanan)</p>
+                <p>Binary contrast o dalawahang pagtutunggali ang ipinapakita ng liriko sa awiting “Bahay” at “Manggagawa” sa pagitan ng mga mahihirap at mayayaman. Sa awiting “Bahay” ay pinagkumpara ni Gary Granada ang labinlimang mag-anak na nagsisiksikan sa isang barung-barong na sira-sira at sa isang mansyon na halos walang nakatira. Binigyang diin niya sa awit na kahit ang Maylikha ay posibleng magtaka kapag nakita ang tirahan ng mga mahihirap nating kababayan na inilarawan bilang “pinagtagpi-tagpi”</p>
+                <p>Notes: (Binary contrast -Meaning from seeing themes or elements as connotative categories of opposites. An analysis of thematic opposites in a text or artifact studies the patterns other than sequential ones in the story. Find one element, consider its symbolic theme and then look for its opposite.</p>
+                       
+                       
+                        <img src="https://assets.onecompiler.app/43hsvrazv/43ht5ytbu/w%207%205.png" alt="Lesson Image" width="400" style="display: block; margin: 20px auto;">
+                        
+                        <p> Binary contrast o dalawahang pagtutunggali ang ipinapakita ng liriko sa awiting “Bahay” at “Manggagawa” sa pagitan ng mga mahihirap at mayayaman. Sa awiting “Bahay” ay pinagkumpara ni Gary Granada ang labinlimang mag-anak na nagsisiksikan sa isang barung-barong na sira-sira at sa isang mansyon na halos walang nakatira. Binigyang diin niya sa awit na kahit ang Maylikha ay posibleng magtaka kapag nakita ang tirahan ng mga mahihirap nating kababayan na inilarawan bilang “pinagtagpi-tagpi”
+Notes: (Binary contrast -Meaning from seeing themes or elements as connotative categories of opposites. An analysis of thematic opposites in a text or artifact studies the patterns other than sequential ones in the story. Find one element, consider its symbolic theme and then look for its opposite) 
+Sa awiting “Manggagawa” naman ay binigyang diin ang pagiging manhid ng mga kapitalista sa karaingan ng mga manggagawa lalo pa sa usapin ng pagtataas ng kanilangsuweldo. Matindi ang sumbat ng huling saknong ng awit tagping basurang pinatungan ng bato / hindi ko maintindihan bakit ang tawag sa ganito ay bahay? Samantalang may isang panginoong may kapital/ ang nagdiwang at nagdaos ng hapunan at kabilang sa hapag ng panauhing pandangal / ang tanyag at ang banal sa ating lipunan/ halos ang bawat isa’y makapangyariha’t matagumpay/ dahilan sa isang taglay na katangian / ang matibay na loob na magsawang mabusog / habang may nangangatog sa hapdi ng tiyan.”  Ganitong-ganito ang kalagayan sa pagitan ng mga manggagawang kontraktuwal sa ating lipunan at sa mga kapitalistang nagkakamal ng yaman mula sa lakas-paggawa ng manggagawa Kung mas marami sana ang gagamit ng kantang “Bahay” at “Manggagawa” sa mga guro ng paaralan ay mas mailalapit nila ang reyalidad sa kanilang mga estudyanteng ipinaghehele ng eskapismo mula sa  pinagkakaabalahan nilang social network.</p>
+<br> <b>4.3 Maunawaan ang usapin sa Lipunan</b> </p>
+<p> Ang awiting “Dam” naman ay naglalaman ng protesta sa mga development projects ng gobyerno na nagwawasak sa kapaligiran at sa pamumuhay ng mga
+katutubo. </p>
+
+<br> <p> Sa ngalan ng huwad na kaunlaran / Ang bayan ay sa utang nadiin / At ito na ang kabayaran /Ang kanunununuang lupain / Ang mga eksperto'y nagsasaya / At nagpupuri at sumasamba / Sa wangis ng diyus-diyosan nila / Ang dambuhalang dam. Taong 1989 nalikha ang awit na halaw sa pakikipaglaban ng mga katutubo sa Cordillera na tumutol sa pagtatayo ng Chico Dam. Noong Abril 24, 1980 ay nagbuwis ng  buhay si Macliing Dulag, isang lider ng mga katutubong Kalinga na pinaslang ng mga militar dahil sa pagtutol nito sa Chico Dam na wawasak sa kalikasan at sa kanilang pamumuhay. Napigil ang pagtatayo ng dam at ang kamatayan ni Macliing Dulag ay naging simbolismo ng kabayanihan at ngayon ay ipinagdiriwang bilang “Araw ng Cordillera”. Ang kantang “Dam” ni Gary Granada ay hindi lamang awit na nagpapakita ng pagmamahal sa bayan kundi awit rin na nagpapakita ng pagmamahal sa kalikasan. Hanggang ngayon, ang mensahe ng awit ay patuloy pa ring nanunumbat habang walang pakundangan rin ang pagwasak sa kapaligiran kapalit ng kaunlaran. Maiuugnay naman sa kalagayan ng mga manggagawa ang nilalaman ng kantang “Hatinggabi Sa Picket line” na literal na tumatalakay sa mga manggagawang nagwewelga.Nagpapakita ng realismo ang refrain ng awit na may linyang “Hangga’t manggagawa’y nakagapos / ang welga’y hindi matatapos/ hangga’t naghahari ang pera’t baril / ng mga uring naniniil” at nagpaaalala sa pinaslang na labor leader ng  Nestle na si Diosdado Fortuna noong Setyembre 22, 2005 at sa pakikibaka ng mga manggagawa ng Philippine Airlines noong Setyembre 30, 2011 Ang mga ganitong tema ng awit ay mainam na gamitin upang mamulat ang mga estudyante hinggil sa kalagayan ng mga manggagawa sa Pilipinas at hindi nalalayo sa mga akdang pampanitikan na matatagpuan sa mga panghayskul na aklat sa Filipino tulad ng kuwentong “Aklasan” ni Brigido Batungbakal, “Ang Dyanitor” ni Aurelia Vicente at “Gutom” ni Clodualdo del Mundo. Ang mga kuwentong ito, tulad ng mga awit ni Gary Granada ay repleksyong ng kalagayan ng mga mahihirap nating kababayan sa lipunan na dapat magkaroon ng puwang sa mga talakayan sa klase sa hayskul man o sa kolehiyo. </p>
+
+<br> <p> Ang mga awiting “EDSA” at “Kanser” ay kapwa inilabas ni Gary Granada noong 1989 at kasama sa album na “Ugat: Pagsamba at Pakikibaka Vol. 2” na isa sa pinakamatapang na album na kanyang inilabas. Ang liriko ng “EDSA” ay pagtuligsa sa kawalan ng pagbabago pagkatapos na mapatalsik si Marcos at mailuklok sa puwesto si Pangulong Cory Aquino.  Ayon sa awit, “Ang EDSA’y tulad ng paglaya natin sa mga Kastila/ sa halagang dalawampung milyong dolyar/ sa anyo ng demokrasya ay angkop at kasyang-kasya/ ang base militar at sandatang nukleyar.” Malinaw na ginamit ni Gary Granada ang kasaysayan para maikumpara sa Treaty of Paris noong 1898 ang EDSA Revolution noong 1986 na ayon sa awit ay simbolismo ng huwad na kalayaan. Sa panitikan, ganito rin ang tema ng kuwentong “Ugat” ni Genoveva Edroza Matute kung saan ang pangunahing karakter na si Lolo Tasio ay nais nang umalis ng Pilipinas nang mapagtanto niya na wala namang naganap na pagbabago sa kalagayan ng bansa pagkatapos ng EDSA Revolution. Samantala, ang kantang “Kanser” naman ay tumatalakay sa sakit ng lipunan partikular sa pagsasamantala ng mga mayayaman sa mahihirap na ang salosyon ay “totoong rebolusyon”.
+Lumilitaw na ang awit ay bahagi rin ng pagtuligsa sa huwad na kalayaang natamo ng sambayanan matapos na mapatalsik ang diktaturya ni Marcos. Ang awiting “Pablong Propitaryo” ay sinulat ng Palanca awardee na si Tom Agulto ngunit nilapatan ng musika at inawit ni Gary Granada. Tinalakay sa awit ang abusadong panginoong maylupa, pulitiko at propitaryo na si Pablo. Kagaya sa Kabanata IV ng “El Filibusterismo” kung saan pinaslang ang paring si Padre Clemente na kumamkam ng lupa ni Kabesang Tales, binaril rin at napatay ang mapagsamantalang si Pablong Propitaryo: “Tingga ay naglagos sa dibdib, sa utak/ sinong walang puso kaya ang umutas?” Ang ganitong eksena ay nagtataglay ng element ng Marxismo kung saan ang dahas ang tanging solusyon upang wakasan ang pagsasamantala.Ganito ring solusyon ang ginamit ni Efren Abueg sa kanyang kuwentong “Ang Kamatayan ni Tiyo Samuel” kung saan ang balisong ni Felipe ang kumitil sa mapagsamantalang si Tiyo Samuel. Sa konteksto ng lipunang Pilipino, nananatiling pinakamatandang kilusan sa Asya ang armadong pakikibaka ng New People’s Army sapagkat tanging dahas lang ang pinaniniwalaang nalalabing paraan sa mga magsasaka at mahihirap nating kababayan na kasapi nito. Ilan lamang yan sa mga bahagi ng Pananaliksik na ginawa ni Dr. Joel Malaban, Pinapakita sa kanyang pananaliksik kung gaano kalakas ang kapangyarihan ng isang awitin at kung ano ang nagiging dulot nito sa mga nakikinig.
+Ang musika ay nakakabit na sa kultura at pamumuhay ng mga Pilipino, nagiging susi rin ito sa pag-unlad ng kanilang kaisipan at pakikibaka sa buhay.
+Isa lamang si Gary Granada sa maraming mkopositor ng Pilipinas. Na maraming gustong sabihin sa bayan sa pamamagitan ng musika. </p>
+
+                       
+                        </div>
+                
+                `
+             },
+             {  
+                id: 8,
+                title: "Aralin 8: Filipino sa Usaping Agraryo",
+                content: `
+        
+                       <div class="lesson-text">
+                       
+                       <br> <p> <b>1.1 Maunawaan ang kalagayan ng Agraryo sa Pilipinas</b> </p>
+                       <p> FILIPINO SA USAPING AGRARYO</p> 
+                       <p> Hindi magpapahuli ang isyung pang-agraryo sa paggamit ng wikang Filipino sapagkat ang masang maralita at mga magsasaka ay pawang sa wikang ito nakapaghahayag ng saloobin
+Ipinaskil ng ANAKPAWIS INFO noong Disyembre 14, 2015 ang kanilang pahayag sa isyung Agraryo, naging paraan ito upang maipahayag ang isyu sa wikang Filipino ng maipabatid sa mamamayang Pilipino.
+Pahayag ni Anakpawis Representatuve Fernando “ka Pando” Hicap sa Asembliya ng Farmers Development Center (FARDEC) Central Visaya Cebu City, Disyembre 11, 2015</p>
+
+<br> <b>Maiksing Kalagayang Magbubukid ng Pilipinas</b> </p>
+<p>Ang lipunang Pilipino ay nanatling agraryo at agrikultural sa ilang dekada. Sa ilang dekada ng pagpapatupad ng mga pumuposturang development plan ng mga nakaraan at kasalukuyang rehimen. Ang Medium-Term Philippine Development Plan (MTPDP) o mas kilala ngayon sa tawag na Philippine Development plan (PDP) ay wala itong ilusyong lumikha ng tunay na pag-unlad na nakabatay sa Pambansang Industriyalisasyon.
+Samakatuwid nanatiling atrasado ang pwersa sa produksyon sa bansa at pinalala lamang ang umiiral na relasyon sa produksyon, partikular sa kanayunan tunay na pag-unlad ng nakabatay sa pambansang industriyalisasyon. Ang lokal na pyudalismo ay tinutungtungan ng monopolyong kapitalismo o imperyalismo
+Mayorya 75% ng populasyon ay magsasaka o mula sa kanayunan, itinatago ito ng estado upang lumikha ng ilusyong pag-unlad o progreso.
+          Noong 2013 ayon sa gobyerno ( sa datos na isinumite nito sa Wold bank) aabot ng 12.4 milyonng ektarya ang lupaing agrikultural  o halos 42% ng kabuoang kaluoaan ng bansa at 5.6 milyong ektarya nito ay arable 7.3 milyong ektarya ay sakahan ng cereal tulad ng palay. GDP sa Agriculture Hunting Forestry and Fishing Ngunit 11% lamang ito ng kabuuan, halos 19 bilyong metrik toneladang produksyong palay ay nagkakahaaga ng P378 bilyon. Halos P20 kada kilo.Ang palay na ito ay lumikha ng 12.3 bilyong metriko toneladang bigas.</p>
+
+<br> <b>1.2 Malaman ang kalagayan ng mga magsasaka sa bansa</b> </p>
+
+
+<br> <b>Kawalang Lupa</b> </p>
+          <p>Sa malawak na kanayunan ng bansa ang mga magsasaka ay walang lupa, Ang bangkaroteng CARP (Comprehensive Agrarian Reform Program) na nag-expire noong Hunyo 30, 2014 ya napatunayang peke at walang silbi. Noong I-extend ito noong 2009 bilang CARP Extention with Reforms (CARPER), umabot sa 1.6 milyong ektarya umano ang balanse nito para sa 1.2 milyong farmer-beneficiaries (FB) noong 2011 ay halos 1.5 milyong ektarya para sa 976,000 FB. Kung susuriin ang sukat ng sakahan sa pagpapatupad ng CARPER ay kakarampot na average na 1.2 ektarya</p> 
+
+<br> Upa sa Lupa</b> </p>
+          <p>Bunga ng malawak na kawalang lupa, ang mga magsasaka ay nakatanikala sa pagbabayad ng upa sa lupa upang makapag saka, Umaabot sa 13 kaban sa kada 100 kabang inaning palay ang upa sa lupa. P10,000 sa tatlo hanggang apat na buwan na pagsasaka sa palay na lilikha ng halos P75,000 na halaga ng ani kaya halos pumapalo ng 87% ang upa sa lupa, napipilitan ang mga magsasakang magpasailalim rito upang hindi lamang paalisin sa lupa. </p>
+
+<br> Mababang sahod at iba pang pagsasamantala</b> </p>
+          <p>Nanatiling mababa ang sahod ng mga manggagawang bukid, karaniwang ay umaabot ito sa P150, P200, P250. Ayon sa gobyerno ang manggagawang bukid daw sa palayan ay kumikita ng P256 habang sa maisan ay P206, Gayunpaman kahit umabot pa ito ng P300 kulang na kulang pa rin ito na panggastos sa isang araw. Bunga na rin ng kawalang lupa at monopolyo ng mga panginoong may lupa sa merkado, karaniwang nakaasa sa utang ang mga magsasaka kung saan sa maraming lugar ang P1000 na utang ay may interes na isang kaban ng palay na may halagang P700-P800 halos umaabot ng 70%-80% ang tubi nito sa loob ng tatlo hanggang apat na buwan.</p>
+
+<br> Plantasyon: Imimperyalistang pandarambong sa agrikultura</b> </p>
+          <p>Mula sa kolonyalismong Kastila, ang agrikultura ng Pilipinas ay nagsilbing taga supay lamang ng dikta ng dayuhang kapangyarihan. Ang sisitemang hacienda ang ugat ng kung bakit  sampu-sampung ektaryang lupa ay tinatamnan lamang ng  iisang uri ng produksyin. Sa gitnang Luzon, Negros, kopra sa Wuezon, bikol at Easter Visayas ay Tubo ang nakatanim. Sa ilalim ng dektaduryang Marcos tumodo ang pagpasok ng monopolyo kapitalista tulad ng Dole at Del monte, Kung saan libo-libong ektarya ang sinaklaw nito sa Mindanao.</p>
+
+<br> Malawakang atake sa Lumad para sa imperyalistang pandarambong sa likas yaman</b> </p>
+          <p>Ang atake sa Lumad ay pangunahing bunsod ng pang-aagaw sa kanilang lupang ninuno, pagwasak sa kanilang komunidad para angkinin ng monopolyo kapitalista ang likas na yaman dito Sa ilalim ng ng Mining Act of 1995 ang saklaw ng Mineral Production Sharing Agreement (MPSA) ay umabot na ng 58400 ektarya na may 338 na contractor. Sa kasalukuyan umaabot ng 500,000 ektarya ang sinasaklaw ng mga mining operation sa Mindanao at 80% nito ay mga lupang ninuno at kumunidad ng mga lumad. Aabot sa 15 malalaking  dayuhang mining corporation na pag-aari ng Amerikano, Hapon, Canda, Britanya, Australia, China, UAE, Switzerland at iba pa ay sumisira sa mahigit 130,000 ektarya sa Minadnao</p>
+
+<br> 4.3 Maunawaan ang Importansiya ang Lupa sa Bansa</b> </p>
+<b>Papaigting na pagsusulong ng Tunay na Reporma sa Lupa</b> </p>
+          <p>Sa harap ng matinding atake sa kilusang  magbubukid sa bansa, hindi sinusuko ng masang magsasaka ang karapatan sa lupa.Bagkus papaigtingin ang pagsusulong ng tunay na Reporma sa Lupa at pagtatanggol sa lupa. Ang Kilusang magbubukid ng Pilipinas (KMP) na may epetibong pamumuno sa 2 milyong magsasakang Pilipino ay masugid na inaabante ang pagsusulong ng Tunay na Reporma sa Lupa. Mahalaga ang pagtatambol ng isyung magbubukid dahil marami na tayong karanasan na sa patuloy nating mga kampanyang masa nahihimok na sumama sa mga magsasaka gaya ng mga kampuhang magbubukid sa mga tanggapan ng DAR at iba pang ahensya.Nagpapakita na ang patuloy na pakikibaka ng  mga samahang magsasaka ng bayan, ang nagbibigay ng buhay sa iba pang manggagawang Pilpino, ang pakikibaka  sa reporma sa lupa ay hindi lamang laban ng mga magsasaka kundi ay laban din ng buong bansa. Sa akatuwid kung magkakaroon ang mga magsasaka ng kanilang sariling lupang masaskahan at hindi na aasa sa pangigipit ng mga panginoong may lupa, ay maaring malaki ang maging ginhawa ng produkyon pang agrikultura ng bansa. Maaring ito ang maging sagot sa kakulangan ng makakain ng masang Pilipino sa kanilang hapag kainan.</p>
+
+                </div>
+                
+                `
+             },
+             {  
+               id: 9,
+                title: "Aralin 9: Filipino sa Serbisyong Lipunan",
+                content: `
+                
+                   <div class="lesson-text">
+                   
+                   <br> <p> 1.1 Maunawaan ang halaga ng paggamit ng wikang Filipino sa iba pang larang
+FILIPINO SA SERBISYONG PANLIPUNAN
+          Naturingang may sariling wika ang Pilipinas na ipinagmamalaki at ibinabandila tuwing buwan ng Agosto, Ang Wikang Filipino. Nakakatawang isipin, sa pagbibiyahe patungong ibang bansa wala namang masama sa mga tinuring sa itaas, ngunit sana man lamang ay madama ng mga taga ibang bayan ang pagpapahalaga ng mga Pilipino sa sariling wika.      
+          Si Ranee Rose A. Garatol ay gumawa ng pag-aaral hinggil dito, kaniyang isinagawa ang Mungkahing Salin sa mga Paalala, Alituntunin, Panuto, at Direksyon sa mga Piling Pampublikong Ospital
+ <img src="https://assets.onecompiler.app/43hsvrazv/43ht5ytbu/w9%20isa.png" alt="Lesson Image" width="400" style="display: block; margin: 20px auto;">
+ <br> <p> <b>1.2 Malingan sa paggamit ng Filipino sa iba’t ibang serbisyo</b> </p
+
+<br> <p>FILIPINO SA EDUKASYON</p>
+          <p>Si Hermeline Aguilar ay nagsasagawa ng pag-aaral hinggil sa Kabisaan ng Wikang Filipino at Alternatibong Sistema ng Pagkatuto (ALS) sa Pagtuturo ng mga Piling Learning Center sa Pambansang Punong Rehiyon ng Pilipinas. Narito ang isinagawa niyang pananaliksik. </p>
+<br> <b>Abstrak</b> </p>
+          <p>Isinakatuparan noong 2003 ang programang Alternatibong Sistema ng Pagkatuto (ALS) ng Kagawaran ng Edukasyon (DepEd) bilang tugon sa Millennium Development Goals ng Pilipinas na Education For All (EFA) sa taong 2015 Naging malaki ang gampanin ng Wikang Filipino bilang midyum ng pagtuturo at pagkatuto. Isa ito sa mga dahilan kaya’t sinikapng mananaliksik na alamin ang Persepsiyon sa Kabisaan ng Wikang Filipino at Alternatibong Sistema ng Pagkatuto (ALS) sa Pagtuturo sa mga piling learning center sa Pambansang Punong Rehiyon ng Pilipinas.</p> 
+<br> <b>Paraan sa Pagtukoy sa Kabisaan ng Wikang Filipino at Alternatibong Sistema ng Pagkatuto (ALS) sa Pagtuturo sa mga Piling Learning  Center</b> </p>
+
+<br> <b>Ang Bisa ng Filipino Bilang Midyum ng Pagkatuto</b> </p>
+          
+          <p>Mabisang mabisa ang Wikang Filipino bilang midyum sa pagkatuto ng mga mag-aaral ng ALS ay sa Limang Hibla ng Pagkatuto, samakatuwid: Mabisang mabisang midyum ang Wikang Filipino upang maging kasiya-siya ang pag-aaral; upang mailapat ang kaugnayan sa buhay ng mga aralin</p>
+<br> <b>Kongklusyon</b> </p>
+          <p>Naging mabisang mabisa ang paggamit ng Wikang Filipino sa pagkatuto ng mga mag-aaral samantalang pinakamabisa naman ito sa pagtuturo sa Alternatibong Sistema ng Pagkatuto (ALS).</p>
+ <br> <b>FILIPINO SA NEGOSYO</b> </p>
+          <p>Gaano ba kaepektibo kung gamit ang sariling wika sa pagnenegosyo? Karaniwan nang nagging isyu ito sa larang ng pangangalakal o negosyo. Ang paggamit sa wikang Filipino ay higit na nakaiimpluwensiya sa mga taong nakakarinig sa isang programa. Isang patunay na rin ang iba’t ibang anunsyo na mula sa ibang bansa na nilalapatan ng wikang Filipino upang higit nating maunawaan at makahikayat nito ang mga mamimili.</p> 
+                
+                 
+                 </div>
+                 
+                 `
+             },
+             {  
+                  id: 10,
+                title: "Aralin 10: Wikang Filipino sa Akawnting, Filipino sa Literatura, Filipino sa Inhinyerang Sibil, Filipino sa Medisina",
+                content: `  
+                       <div class="lesson-text">
+                       
+                       <br>  <b>1.1 Maunawaan ang halaga ng paggamit ng wikang Filipino sa iba pang larang</b> </p> 
+  <br>  <b>WIKANG FILIPINO SA  AKAWNTING 
+        <p>Ang posibilidad ng Paggamit ng Librong Nakasulat sa Wikang Filipino sa Pagtuturo ng Accounting Ni Patrick M. Malabo.
+          Nakasaad sa ginawang Pananliksik ni Patrick M. Malabo na maaring gamiting ang wikang Filipino  sa mundo ng Akawting. Narito ang ilang bahagi ng kanyang pananaliksik.</p>
+  <br>  <b>Abstrak 
+  Isa sa mabigat na problema ng mga estudyante sa Accounting ay ang hirap ng pag-unawa sa kanilang aralin. Malaking hadlang din sa lubos nilang pagkatuto ay ang libro nilang ginagamit na nakasulat sa wikang Ingles. Bagamat alam nila itong basahin, hindi maikakaila na hirap nila itong unawain sapagkat hindi naman ito ang nakalakihan nilang wika.</p>
+  <br>  <b>Wika, Pagbabasa at Accounting</b> </p>
+          <p>Luhang mahalaga sa mga mag-aaral na ito ang pagbabasa.Ang pagbabasa ay isang malawak na proseso na may kinalaman sa pagkilala pagpapahalaga at pag-unawa sa mga salita. Nagibibigay-katuturan din ito sa kahulugan at diwa ng isang limbag na kaisipan (Carpio et. al., 2012)
+          Sabi nga ni J.V Stalin (salin ni Mario Miclat 1995), “Isang midyum at isang instrument ang wika na nakatutulong sa kumonikasyon, pagpapalitan ng kaisipan, at ang pag-uunawaan ng tao. Dahil tuwirang nakaugnay ito sa pag-iisip, salita, at sa mga salitang pinagsama-sama sa pangungusap at ang mga tagumpay sa kognisyon ng tao, at sa gayon ay nagiging possible ang pagpapalitang ng ideya sa lipunan ng tao” Sa talumpati naman na ibinigay ng isang pinipitagang edukador at tagapagtanggol ng wikang pambansa na si Dr.Amalia Cullarin Rosales na PInamagatang “Ang Wikang Filipino sa Akademya”.
+          Nag bigay siya ng mga katanungan sa paggamit ng Wikang Filipino sa Akademya at binigyang-liwanag ang bawat isa sa mga tanong na ito.
+          Mas epektibo ba ang paggamit ng Wikang Filipino kaysa sa Wikang Ingles? at Ano ba ang pananaw ng mga mag-aaral hinggil sa paggamit ng Wikang Filipino bilang panturo?</p>
+  <br>  <b>Konklusyon</b> </p>
+          <p>Sa kabuuan, mailalahad natin na mainam ang paggamit ng librong nakalimbag sa wikang Filipino sa pagtuturo ng accounting.</b> </p>
+  <br>  <b>FILIPINO SA LITERATURA</b> </p>
+          <p>Mahalaga ang papel ng Wikang Filipino sa pagsusulat ng literatura sa Pilipinas, Mas mailalapit ng wikang Filipino ang damdamin, kaisipan at kahulugan ng bawat maisusulat sa mga mambabasang Pilipino.
+          Narito ang ilang bahagi ng ginawang sulatin ni Perla S. Carpio na may pamgat na Panimulangpag sipat sa kulturang popular. </p>
+  <br>  <b>PANIMULANG PAG SIPAT SA KULTURANG POPULAR Ni Perla S. Carpio</b> </p>
+          <p>Salamin ng tao ang kanyang kultura. Palasak itong pahayag sa mga aklat panghumanidades. Sa kulturang kanyang taglay ay hinuhugisan ang kaniyang pagkatao. Ang kanyang pananamit, paraan ng pananalita at pagkilos, pagtanggap at pagbibibigay-interpretasyon at solusyon sa mga suliraningkinahaharap at kinahihiligang paksain ng usapan.</p>
+  <br>  <b>PANG MASA ang kulturang popular</p>
+          <p>Laging may paghihiwalay sa estadong ekonomiko ang tao. Sa lipunan, laging may elitist at mahirap; Ang class A, at B, ay ikinukunsiderang mga “rich”, samantalang ang mga nasa class C, D at E ay ang masa. Ang masa ang palagiang higit na marami , higit na malaki, at higit na sentro ng komeryalisasyon. Sila ang madaling kausapin, madaling kumbinsihin, madaling patawanin, paiyakin at busugin. Kapag masa ang tumangkilik ng moda ng kasuotan, ito nag magiging uso.</p>
+  <br>  <b>ORDINARYO ang kulturang popular</b> </p>
+          <p>Nasa pagiging pangkaraniwan ng mga paksang talakay at paglalarawan ang kalakasan ng kulturang popular.Saklaw nito ang lahat ng paksa nang walang pagtatanggi o pagtatangi.</b> </p>
+  <br>  <b>PINAGKAKAKITAAN ang kulturang popular
+          <b>Hindi maihihiwalay ang konsepto ng komersyalisasyon sa kulturang popular. Sumulpot ang kulturang popular sa tagumpay nitong kabakahin ang tugtugin ng komersyo at komonalidad.</b> </p>
+  <br>  <b>USO ang kulturang popular</b> </p>
+          <p>Sabin i Allauahbah (1939): “The wisdom of the past is of value, when it merges with the present. Adherence to the past can cause death to progress and misery to living.” Dapat maging “in” upang maipagpatuloy ang progreso o pag-unlad.</p>
+  <br>  <b>LIKAS ang pag-usbong ng kulturang popular</b> </p>
+          <p>Idinikta ng panahon at pagkakataon ang pag-usbong ng kulturang popular. Minamadali natin ang panahon sa kasalukuyan. Kung noon ay nag mamadali ang panahon, ngayon at minamadali na din ito. </p>
+  <br>  <b>ABOT-KAYA ang kulturang popular</b> </p>
+          <p>Ito marahil ang isa sa mga pangunahing dahilan kung bakit nagpapatuloy at nagtatagal ang Jolibee at Mc Donalds, mas higit na marami ang bumibili ng tabloid kaysa broadsheet.</p>
+  <br>  <b>RELASYON ang puno’t dulong layunin ng kulturang popular</b> </p>
+          <p>Ugnayan Ito ng pinatatatag ng kulturang popular Likas sa  tao na ariin siyang may ugnayan o relasyon sa kaniyang kapwa.</p>
+  <br>  <b>1.2 Malinang sa paggamit ng Filipino sa iba’t ibang serbisyo</b> </p>
+ <b>FILIPINO SA INHINYERYANG SIBIL</b> </p>
+ <b>Paggamit ng Wikang Filipino sa Inhinyeryang sibil</b> </p>
+<b>PANUKALANG PROYEKTO (INHINYERYANG SIBIL)</b> </p>
+<b>PAMAGAT: PAGPAPAGAWA NG PEDESTRIYANG TULAY SA CASILI, RIZAL</b> </p>
+<b>PROPONENT NG PROYEKTO</b> </p>
+<p>Foundation of Outstanding Mapuans Inc. (FOMI) at ang National Association of Mapua Alumni ng Mapua Rasyonal
+          Ang panukalang proyekto ay bunga nang mapanood sa TV news ang pagtawid ng mga mag-aaral sa ilog ng Casili gamit ang balsa at salbabidang goma papunta sa Casili Elementary School.</p>
+<b>FILIPINO SA INHINYERYANG SIBIL</b> </p>
+<b>DESKRIPSYON NG PROYEKTO</b> </p>
+          <b>Ang Pedestriyang Tulay ng Casili ay isang suspensyong tulay na may kabuuang ispan na 105.5 metro (25m+62m+18m) at isang 1.0 metro. Ang Proyekto ay may pangunahing layunin na matulungan ang komonidad ng Casili sa Rizal upang patuloy na makapag-aral nang hindi na kailangan pang gumamit ng balsa o salbabida para lamang makatawid sa ilog. Ang inaasahang panahon na magugugol sa proyekto ay 10 buwan mula sa groundbreaking nito hanggang sa pagtatapos at maaari nang magamit ng komonidad.</b> </p>
+<br> <b>FILIPINO SA MEDISINA O AGHAM</b> </p>
+<p>Paggamit ng wikang Filipino sa Medisina o Agham bilang pagbibigay ng anunsyo,
+          Ang Influenza A (H1N1) ay isang bagong uri ng vayrus na nagdudulot ng sakit sa tao. Ang paraan ng pagkalat ng  vayrus na ito ay maihahalintulad sa kung papaanong kumakalat ang iba pang  influenza vayrus</p>.
+</b> <p>Paraan ng Pagsasalin</b> </p>
+<p>•	Eksposyur sa mga patak ng pagbahing at pag-ubo ng taong may Influenza A (H1N1)</p>
+<br> •	Pagsalat sa bibig, tenga, ilong o mata matapos na magkaroon ng kontak sa gamit na nahawakan o kaya ay mismong sa taong may Influenza A (H1N1) </p>
+<br> <b>Mga Palatandaan o sintomas ng Pagkakaroon ng Influenza A (H1N1)</b> </p>
+<br> <b>Gaya ng sintomas kapag may karaniwang trangkasao tulad ng:</b></p> 
+<br>•	Lagnat </p>
+<br>•	Pananakit ng lalamunan</p>
+<br>•	Pag-ubo</p>
+<br>•	Masakit ang Ulo</p>
+<br>•	Sipon</p>
+<br>•	Nananakit na Kasu-kasuan</p>
+<br>•	May ilang nagtatae, nahihilo at nasusuka</p>
+<br> <b>Paano makaiiwas sa Pagkakaroon ng Influenza A (H1N1)</b> </p>
+<br>1.	Takpan ng tisyu ang bibig kung uubo at ang ilong kung babahing</p>
+<br>2.	Agad na itapon nang maayos at tama ang ginagamit na tisyu;</p>
+<br>3.	Madalas na maghugas ng kamay gamit ang tubig at sabon;</p>
+<br>4.	Umiwas sa mga taong may mga sintomas ng tulad sa influenza;</p>
+<br>5.	Magpalakas ng katawaan; palagiang matulog nang walong oras sa gabi, mag-ingat sa istres, uminom ng maraming tubig at kumain ng masusustansiyang pagkain</p>
+
+                       
+                       
+                
+                </div>
+                 
+                 `
+                    
+             },
+             {     
+                id: 11,
+                title: "Aralin 11: Mga Batayang Kasanayan sa Pananaliksik",
+                content:   `  
+                
+                       <div class="lesson-text">
+                       
+                       
+                       <br> <b>Kasanayan sa Pagsasalin</b> </p> 
+
+
+          <p>Dahil sa karamihan ng mga dokumento at siyentipikong pag-aaral ay naggaling sa mga mauunlad na bansa, isa samga nagiging kahingian ay ang pagsasalin ng mga ito sa Filipino nang sa gayon ay maging bahagi ito ng pagpapalakaw ng saliksik sa bansang Pilipinas. Nilagom ni Karen San Diego (2014) sa kaniyang isinasagawang pag-aaral hinggil sa pagsasalin wika na hinggil sa labing-walaong (18) paraan ng pagsasalin ni Peter Newman (1988) mula sa aklat na A textbook of Transnlation 
+Narito ang labing-walang (18) paraan ng pagsaslain ayon sa libro ni Peter Newman (1988).</p>
+ 
+ <br> <p>1.	Adapsyon (Transference) – Ito ay ang paraan ng panghihiram o paglilipat ng mga kultural na salita mula sa Pinagmulang Wika (PM) patungo sa Target na Wika (TW) </p>
+ <br> <p>2.	Isahang Pagtutumbas (One-to_One Traslation) – literal na pagsasalin sa isa-sa-isa pagtutumbasan ng salita sa salita, parirala sa parirala, sugnay sa sugnay at pangusap sa pangungusap </p>
+ <br> <p>3.	Saling Hiram (Through Traslation) Katumbas nito ang ginagamit sa pagsasalin ng mga karanniwang kolokasyon.</p> 
+ <br> <p>4.	Naturalisasyon (Naturalization) – may pagkakahawig sa Transference o adapsyon ngunit dito ay nakikiaayon muna ang normal na pagbigkas at pagkatapos ang normal na morpolohiya sa target na wika na inaayon sa ortgrapiya ng Tunguhing Wika </p>
+ <br> <p>5.	Leksikal na Sinonim (Lexical Synonymy) paraan ng pagsaslain na nagbibigay nang malapit na katumbas na salita kasingkahulugan sa target na wika </p>
+
+
+ <br> <p>6.	Transposisyon (Transposition) – Tinatawag ding Shift na ang ibig sabihin ay pagkakaroon ng pagbabago sa gramatika ng pinagmulang wika kapag isinalin sa target na wika </p>
+ <br> <p>7.	Modulasyon (Modulation) – Pagsasalin na may pag-iiba sa punto de bista o pananaw sa pagbibigay-kahulugan sa mga dahilan sa iba’t ibang teksto. </p>
+ <br> <p>8.	Kulturan na Katumbas (Cultural Equivalent)- Ito ang malapit o halos wastong salin, ang ang isang kulturang salita PW ay isasalin sa katumbas ding kulturang salita sa TW </p>
+ <br> <p>9.	Gamiting Katumbas (Function Equivalent) – Paraan ng pagsasalin na ibinibigay ang higit na gamitin at tinatanggap na katumbas o kahulugan. </p>
+ <br> <p>10.	Deskriptibong Panumbas (Descriptive Equivalent) – Pagbibigay ng katumbas na kahulugan sa pamamagitan ng depinisyong naglalarawan gaya ng paggamit ng pariralang pangngalan o sugnay na pang-uri </p>
+ <br> <p>11.	Kinikilalang Salin (Recognized Translation) – ang paraan sa pagsasalin sa opipsyal at tinatanggap na nakararami na salin ng anumang termino </p>
+ <br> <p>12.	Pagdaragdag /Pagpapalawak (Addition/Expansion)- pagdaragdarg ng salita sa istrukturang gramatika upang maging malinaw ang kahulugan </p>
+ <br> <p>13.	Pagpapaikli/Pagpapaliit (Rduction/Contraction)- paraan sa pagsasalin na pinaiikli o pinaliliit ang mga salita ng kabuuang gramatika. </p>
+ <br> <p>14.	Pagsusuri sa mga Bahagi (Componential Analysis)- Paraan sa pagsasalin na naghahati-hati batay sa leksikal na yunit sa mga makabuluhang sangkap o hanay </p>
+ <br> <p>15.	Hawig (Paraphrase) – Paraan sa pagsasalin na nagpapaliwanag sa kahulugan ng isang hanay, pangungusap o talata </p>
+ <br> <p>16.	Kompensasyon (Compensation) – pagsasalin na ginagamit kapag ang pagkawala ng kahulugan ng isang bahagi ng parirala pangungusap o talata ay nagtutumbasan o napupunan ng ibang bahagi </p>
+ <br> <p>17.	Pagpapabuti (Improvement) – nagwawasto sa mga gramatikal o tipograpikal na kamalian sa OT, Kaya’ walang mali sa ST </p> 
+ <br> <p>18.	Kuplets (Couplets) – paraan sa pagsasalin na pinagsasama ang paggamit ng dalawa , tatlo o higit pa sa mga pamamaraang nabanggit. </p>
+  <br> <p>1.2Matukoy ang mga mapagkakatiwalaan, makabuluhan at kapakipakinabang nasanggunian sa pananaliksik </p>
+ <br> <p>Kasanayan sa Paglalagom at Pagpaparapreys</p> 
+          <p>Paglalagom ang tawag kapag inilahad nang payak ang orihinal na materyales na nabasa sa paglalagom alalahaning huwag muling isulat ang orihinal na akda, Kailangang mapanatili maiksi ito at gumamit lamang ng sariling pananalita </p>
+ <br> <p>Kasanayan sa Pagpili ng Paksa ng Pananaliksik </p>
+            <p>Pinakamahirap na suliranin ng isang mananliksik ang pagpili at paghanap ng paksa ng pag-aaral. Hindi madaling pumili ng paksa ng isasagawang pananaliksik </p>
+ <br> <p>Mga Maaaring Paghanguan ng Suliranin </p>
+ <p> <b>Sarili – nag mayamang karanasan ng tao ay isa nang sapat na hanguan ng maaaring piliing suliranin o paksa</b> </p>
+           <br> <p>Pang-araw-araw na Babasahin -Mula sa dyaryo, magasin at iba pang pang-araw-araw na babasahin ay makahahango ng mga suliranin malaki ang maitutulong ng paghagilap sa mga napapanahong isyu o balita sa iba’t ibang sektor ng lipunan </p>
+           <br> <p> <b>Brodkast Midya - Malaki ang maitutulong sa paggalugad ng suliranin ang pakikinig at panonood ng mga balita at mga programa sa radyo at sa telebisyon na tumatalakay sa mga mahahalaga t napapanahong isyu ng lipunan </p>
+           <br> <p>Mapagkakatiwalaang Tao -Maraming ideya ang maaaring makuha mula sa pagtatanong sa mga taong mapagkakatiwalaan lalo’t higit sa larangang kanilang kinabibilangan. </p>
+ <br> <p> <b>Mga Maaaring Paghanguan ng Suliranin</b> 
+ <p>Internet- Hindi na maiaalis sa bawat mag-aaral ang mabilisang pagpindot sa mga search engine gaya ng google at yahoo.com kapag may ninanais na hanapin o masagot na paksa</p>
+<p>Laybrari- Hindi maitatanggi na ang pinakamadali at pinakamaraming datos na maaaring pagbatayan ng paggawa ng isang pananaliksik ay ang Laybrari.</p>
+ <br> <p>Mga Dapat isaalang-Alang sa Pagpili ng Paksa</p> 
+ <br> <p>1.	Paghahanguan- Kailangan na siguraduhin na mayroong pagkukuhaan ng datos ang mananaliksik</p> 
+ <br> <p>2.	Panahon- Haba na igugul sa paggawa ng Pananaliksik </p>
+ <br> <p>3.	Pinansyal- Huwag mangarap ng malaking pananaliksik ng hindi kaya ng inyong pinansiyal </p>
+ <br> <p>4.	Paksa- Siguraduhin na ang pananaliksik na gagawin ay may kinalaman sa inyong Kurso </p>
+ <br> <p>5.	Pagnanais-Siguraduhin na ang paksang pipiliin ay naayos sa kagustuhang gawin. </p>
+ <br> <p> <b>Mga Dapat Isaalang-Alang sa Pagsasaayos ng Paksa</b> </p> 
+          <p>Kailangang maisaayos ang suliranin sang-ayon sa kasaklawan at kahangganan nito. Maaaring mabigyang hangganan o limitasyon ang pananaliksik ayon sa sumusunod. </p>
+ <br> <p>1.	Panahon - Kailan nagsimula at kailan magtatapos ang isinasagawang pananaliksik </p>
+ <br> <p>2.	Edad - Anong sakop ng edad lamang ang gagawan ng pananaliksik </p>
+ <br> <p>3.	Kasarian - Maaaring lagyan ng limitasyon ang pananaliksik sang-ayon sa kasarian </p> 
+ <br> <p>4.	Perspektibo - Maaaring limitahan ng Pananaliksik batay sa Perspektibo Hal. Sosyal, Emosyon, Ispiritual, Ekonomiya at iba pa. </p>
+ <br> <p>5.	Propesyon - Maaring ipokus ang pananaliksik sa isang propesyon </p>
+ <br> <p>6.	Tiyak na Kaso -Maaaring tiyakin o tukuyin ang artikular na kaso batay sa malakihang suliranin. </p>
+ <br> <p> <b>1.3 Maisapraktika at mapaunlad pa ang mga batayang kaalaman sa pananaliksik</b> </p> 
+  <br> <p>Karaniwang Format ng Kwantitatibong Pananaliksik sa mga Pamantasan</p>
+
+ <br> <p> <b>KABANATA 1</b> </p>
+ <br> <p>•	Panimula</p>
+ <br> <p>•	Kaligitang Kasaysayan ng Pag-aaral</p>
+ <br> <p>•	Batayang Teoretikal</p>
+ <br> <p>•	Balangkas Konseptwal</p>
+ <br> <p>•	Paglalahad ng Suliranin</p>
+ <br> <p>•	Ano </p>
+ <br> <p>•	Saan </p>
+ <br> <p>•	Kailan </p>
+ <br> <p>•	Mga Tikay na Suliranin </p>
+ <br> <p>•	Hipotesis o Asumpsyon</p> 
+ <br> <p>•	Kahalagahan ng Pag-aaral </p></p>
+ <br> <p>•	Saklaw at Hangganan ng Pag-aaral </p>
+ <br> <p>•	Katuturan ng mga Katawagan </p>
+
+ <br> <p> <b>KABANATA 2 Mga Kaugnay na Literatura at Pag-aaral</b> </p> 
+ <br> <p>•	Salik Pantao</p> 
+ <br> <p>•	Salik Pampapel</p> 
+ <br> <p>•	Salik Pang-elektroniko</p>
+
+ <br> <p> <b>KABANATA 3 Disenyo at Paraan ng Pananaliksik</b> </p>
+ <br> <p>	Disenyo ng Pananaliksik </p>
+ <br> <p>•	Pamamaraang Ginamit sa Pananaliksik </p>
+ <br> <p>•	Teknik sa pagkuha ng Sampol o Kalahok sa Pag-aaral </p>
+ <br> <p>•	Instrumentong Ginamit sa Pananaliksik </p>
+ <br> <p>•	Paraan sa Pangangalap ng mga Datos </p> 
+ <br> <p>•	Kompyutasyong Istatistika </p>
+
+ <br> <p> <b>KABANATA 4 Paglalahad, Pagsusuri at Interpretasyon ng mga Datos</b> </p> 
+ <br> <p>•	Paglalahad ng mga Datos </p>
+ <br> <p>•	Pagsusuri ng Datos </p>
+ <br> <p>•	Interptretasyon ng mga Datos</p> 
+
+ <br> <p>KABANATA 5 Lagom ng mga Natuklasan, Konklusyon at Rekomendasyon</b> </p>
+ <br> <p>•	Lagom ng mga Natuklasan</p>
+ <br> <p>•	Mga Konklusyon</p> </p>
+ <br> <p>•	Mga Rekomendasyon</p>
+
+
+                
+                </div>
+                 
+                 `
+             },
+             {   
+                id: 12,
+                title: "Aralin 13: Mga Batayang Kasanayan sa Pananaliksik", 
+                
+                content: `   
+                
+                        <div class="lesson-text"> 
+                        
+                        <br> <p> <b>1.1 Maunawaan ang halaga ng pananaliksik</b> </p>
+                        <br> <p> <b>MGA BATAYANG KASANAYAN SA PANANALIKSIK</b> </p>
+                        <br> <p> <b>Kasanayan sa Pagsasalin</b> </p>
+<p> Dahil sa karamihan ng mga dokumento at siyentipikong pag-aaral ay naggaling sa
+mga mauunlad na bansa, isa samga nagiging kahingian ay ang pagsasalin ng mga 
+ito sa Filipino nang sa gayon ay maging bahagi ito ng pagpapalakaw ng saliksik sa
+bansang Pilipinas. Nilagom ni Karen San Diego (2014) sa kaniyang isinasagawang
+pag-aaral hinggil sa pagsasalin wika na hinggil sa labing-walaong (18) paraan ng
+pagsasalin ni Peter Newman (1988) mula sa aklat na A textbook of Transnlation
+Narito ang labing-walang (18) paraan ng pagsaslain ayon sa libro ni Peter
+Newman (1988) </p>
+ <br> <p> 1. Adapsyon (Transference) – Ito ay ang paraan ng panghihiram o paglilipat ng mga
+kultural na salita mula sa Pinagmulang Wika (PM) patungo sa Target na Wika (TW) </p> 
+ <br> <p> 2. Isahang Pagtutumbas (One-to_One Traslation) – literal na pagsasalin sa isa-saisa pagtutumbasan ng salita sa salita, parirala sa parirala, sugnay sa sugnay at
+pangusap sa pangusap </p>
+ <br> <p> 3. Saling Hiram (Through Traslation) Katumbas nito ang ginagamit sa pagsasalin
+ng mga karanniwang kolokasyon. </p>
+ <br> <p> 4. Naturalisasyon (Naturalization) – may pagkakahawig sa Transference o adapsyon
+ngunit dito ay nakikiaayon muna ang normal na pagbigkas at pagkatapos ang
+normal na morpolohiya sa target na wika na inaayon sa ortgrapiya ng Tunguhing
+Wika </p> 
+ <br> <p> 5. Leksikal na Sinonim (Lexical Synonymy) paraan ng pagsaslain na nagbibigay
+nang malapit na katumbas na salita kasingkahulugan sa target na wika </p>
+ <br> <p> 6. Transposisyon (Transposition) – Tinatawag ding Shift na ang ibig sabihin ay
+pagkakaroon ng pagbabago sa gramatika ng pinagmulang wika kapag isinalin sa
+target na wika </p> 
+ <br> <p> 7. Modulasyon (Modulation) – Pagsasalin na may pag-iiba sa punto de bista o
+pananaw sa pagbibigay-kahulugan sa mga dahilan sa iba’t ibang teksto. </p>
+ <br> <p> 8. Kulturan na Katumbas (Cultural Equivalent)- Ito ang malapit o halos wastong salin,
+ang ang isang kulturang salita PW ay isasalin sa katumbas ding kulturang salita </p>
+ 
+ <br> <p> 9. Gamiting Katumbas (Function Equivalent) – Paraan ng pagsasalin na ibinibigay
+ang higit na gamitin at tinatanggap na katumbas o kahulugan. </p>
+ <br> <p> 10.Deskriptibong Panumbas (Descriptive Equivalent) – Pagbibigay ng katumbas na
+kahulugan sa pamamagitan ng depinisyong naglalarawan gaya ng paggamit ng
+pariralang pangngalan o sugnay na pang-uri </p>
+ <br> <p> 11. Kinikilalang Salin (Recognized Translation) – ang paraan sa pagsasalin sa
+opipsyal at tinatanggap na nakararami na salin ng anumang termino </p>
+ <br> <p> 12.Pagdaragdag /Pagpapalawak (Addition/Expansion)- pagdaragdarg ng salita sa
+istrukturang gramatika upang maging malinaw ang kahulugan </p>
+ <br> <p> 13.Pagpapaikli/Pagpapaliit (Rduction/Contraction)- paraan sa pagsasalin na pinaiikli
+o pinaliliit ang mga salita ng kabuuang gramatika. </p>
+ <br> <p> 14.Pagsusuri sa mga Bahagi (Componential Analysis)- Paraan sa pagsasalin na
+naghahati-hati batay sa leksikal na yunit sa mga makabuluhang sangkap o hanay </p>
+ <br> <p> 15.Hawig (Paraphrase) – Paraan sa pagsasali na nagpapaliwanag sa kahulugan ng
+isang hanay, pangungusap o talata </p>
+ <br> <p> 16.Kompensasyon (Compensation) – pagsasalin na ginagamit kapag ang pagkawala </p>
+ng kahulugan ng isang bahagi ng parirala pangungusap o talata ay nagtutumbasan
+o napupunan ng ibang bahagi </p>
+ <br> <p> 17.Pagpapabuti (Improvement) – nagwawasto sa mga gramatikal o tipograpikal na
+kamalian sa OT, Kaya’ walang mali sa ST </p>
+ <br> <p> 18.Kuplets (Couplets) – paraan sa pagsasalin na pinagsasama ang paggamit ng
+dalawa , tatlo o higit pa sa mga pamamaraang nabanggit. </p>
+ <br> <p> 1.2 Matukoy ang mga mapagkakatiwalaan, makabuluhan at
+kapakipakinabang nasanggunian sa pananaliksik </p>
+ <br> <p> Kasanayan sa Paglalagom at Pagpaparapreys
+Paglalagom ang tawag kapag inilahad nang payak ang orihinal na materyales na
+nabasa sa paglalagom alalahaning huwag muling isulat ang orihinal na akda,
+Kailangang mapanatili maiksi ito at gumamit lamang ng sariling pananalita </p>
+ <br> <p> Kasanayan sa Pagpili ng Paksa ng Pananaliksik
+Pinakamahirap na suliranin ng isang mananliksik ang pagpili at paghanap ng
+paksa ng pag-aaral. Hindi madaling pumili ng paksa ng isasagawang pananaliksik </p>
+
+ <br> <p> Mga Maaaring Paghanguan ng Suliranin </p>
+ <br> <p> Sarili – nag mayamang karanasan ng tao ay isa nang sapat na hanguan ng
+maaaring piliing suliranin o paksa </p>
+ <br> <p> Pang-araw-araw na Babasahin- Mula sa dyaryo, magasin at iba pang pangaraw-araw na babasahin ay makahahango ng mga suliranin malaki ang maitutulong
+ng paghagilap sa mga napapanahong isyu o balita sa iba’t ibang sektor ng lipunan </p>
+ <br> <p> Brodkast Midya- Malaki ang maitutulong sa paggalugad ng suliranin ang pakikinig
+at panonood ng mga balita at mga programa sa radyo at sa telebisyon na tumatalakay
+sa mga mahahalaga t napapanahong isyu ng lipunan </p>
+ <br> <p> Mapagkakatiwalaang Tao- Maraming ideya ang maaaring makuha mula sa
+pagtatanong sa mga taong mapagkakatiwalaan lalo’t higit sa larangang kanilang
+kinabibilangan. </p>
+ <br> <p> Mga Maaaring Paghanguan ng Suliranin </p>
+ <br> <p> Internet- Hindi na maiaalis sa bawat mag-aaral ang mabilisang pagpindot sa mga
+search engine gaya ng google at yahoo.com kapag may ninanais na hanapin o
+masagot na paksa </p>
+ <br> <p> Laybrari- Hindi maitatanggi na ang pinakamadali at pinakamaraming datos na 
+maaaring pagbatayan ng paggawa ng isang pananaliksik ay ang Laybrari. </p>
+ <br> <p> Mga Dapat isaalang-Alang sa Pagpili ng Paksa </p> 
+ <br> <p> 1. Paghahanguan- Kailangan na siguraduhin na mayroong pagkukuhaan ng
+datos ang mananaliksik </p>
+ <br> <p> 2. Panahon- Haba na igugul sa paggawa ng Pananaliksik</p> 
+ <br> <p> 3. Pinansyal- Huwag mangarap ng malaking pananaliksik ng hindi kaya ng
+inyong pinansiyal </p>
+ <br> <p> 4. Paksa- Siguraduhin na ang pananaliksik na gagawin ay may kinalaman sa
+inyong Kurso </p>
+ <br> <p> 5. Pagnanais- Siguraduhin na ang paksang pipiliin ay naayos sa kagustuhang
+gawin.</p>
+
+ <br> <p> Mga Dapat Isaalang-Alang sa Pagsasaayos ng Paksa
+Kailangang maisaayos ang suliranin sang-ayon sa kasaklawan at kahangganan
+nito. Maaaring mabigyang hangganan o limitasyon ang pananaliksik ayon sa
+sumusunod. </p>
+ <br> <p> 1. Panahon- Kailan nagsimula at kailan magtatapos ang isinasagawang
+pananaliksik </p>
+ <br> <p> 2. Edad- Anong sakop ng edad lamang ang gagawan ng pananaliksik</p>
+ <br> <p> 3. Kasarian- Maaaring lagyan ng limitasyon ang pananaliksik sang-ayon sa
+kasarian </p>
+ <br> <p> 4. Perspektibo- Maaaring limitahan ng Pananaliksik batay sa Perspektibo Hal.
+Sosyal, Emosyon, Ispiritual, Ekonomiya at iba pa. </p>
+ <br> <p> 5. Propesyon- Maaring ipokus ang pananaliksik sa isang propesyon </p>
+ <br> <p> 6. Tiyak na Kaso- Maaaring tiyakin o tukuyin ang artikular na kaso batay sa
+malakihang suliranin. </p>
+ <br> <p> 1.3 Maisapraktika at mapaunlad pa ang mga batayang kaalaman sa
+pananaliksik </p>
+<br> <p>Karaniwang Format ng Kwantitatibong Pananaliksik sa mga Pamantasan</p>
+<p>Narito ang mga balangkas na nilalaman ng Kwantitatibong Pananaliksik </p>
+ <br> <p> KABANATA 1 </p>
+ <br> <p> Panimula </p>
+ <br> <p> • Kaligitang Kasaysayan ng Pag-aaral </p>
+ <br> <p> • Batayang Teoretikal </p>
+ <br> <p> • Balangkas Konseptwal </p>
+ <br> <p> • Paglalahad ng Suliranin </p>
+ <br> <p> • Ano </p>
+ <br> <p> • Saan </p>
+ <br> <p> • Kailan </p>
+ <br> <p>  <br> <p> • Mga Tikay na Suliranin </p>
+ <br> <p> • Hipotesis o Asumpsyon </p>
+ <br> <p> • Kahalagahan ng Pag-aaral </p>
+ <br> <p> • Saklaw at Hangganan ng Pag-aaral </p>
+ <br> <p> • Katuturan ng mga Katawagan </p>
+ <br> <p> KABANATA 2 Mga Kaugnay na Literatura at Pag-aaral </p>
+ <br> <p> • Salik Pantao </p>
+ <br> <p> • Salik Pampapel </p>
+ <br> <p> • Salik Pang-elektroniko </p>
+ <br> <p> ABANATA 3 Disenyo at Paraan ng Pananaliksik </p>
+ <br> <p> • Disenyo ng Pananaliksik </p>
+ <br> <p> • Pamamaraang Ginamit sa Pananaliksik </p>
+ <br> <p> • Teknik sa pagkuha ng Sampol o Kalahok sa Pag-aaral </p>
+ <br> <p> • Instrumentong Ginamit sa Pananaliksik </p>
+ <br> <p>  <br> <p> • Paraan sa Pangangalap ng mga Datos </p>
+ <br> <p> • Kompyutasyong Istatistika </p>
+ <br> <p> KABANATA 4 Paglalahad, Pagsusuri at Interpretasyon ng mga Datos </p>
+ <br> <p> • Paglalahad ng mga Datos </p>
+ <br> <p> • Pagsusuri ng Datos </p>
+ <br> <p> • Interptretasyon ng mga Datos </p>
+ <br> <p> KABANATA 5 Lagom ng mga Natuklasan, Konklusyon at Rekomendasyon </p>
+ <br> <p> • Lagom ng mga Natuklasan </p>
+ <br> <p> • Mga Konklusyon </p> 
+ <br> <p> • Mga Rekomendasyon </p>
+                
+                </div>
+                 
+                 `
+             },
+             {  
+               id: 13,
+                title: "Aralin 14: Malaman ang iba't-ibang uri ng Pananaliksik",
+                content: `
+                
+                    <div class="lesson-text"> 
+                    
+                    <br> <p> <b>1.1 Malaman ang ibat’ ibang uri ng pananaliksik</b> </p>
+<br> <p> <b>MGA URI NG PANANALIKSIK</b> </p>
+<p>Ang uri ng pananaliksik na tumutukoy sa sistematikong kalipunan ng mga metodo o
+pamamaraan at proseso ng imbestigasyon na ginagamit sa pangangalap ng datos sa
+isang pananaliksik Mayroon pang ibang uri ng pananaliksik tulad ng;</p>
+
+<br> <p>1. Applied research – ito naman ay gumagamit ng sopistikasyon, sapagkat ito ay
+konklusyon at estadistika. Karaniwang ito ay bunga ng pagsasagawa ayon sa hinihinging
+panahon. </p>
+<br> <p>2. Pure research - ito ay ginagawa ng isang tao sa sariling kasiyahan upang
+maunawaan ang isang bagay na gumugulo sa kaniyang isipan. Maarii naman
+itong gawin ayon sa hilig ngmananaliksik. </p> 
+<br> <p>3. Empirical o Mala – siyentipiko, ito ay nangangailangan ng malalim na pagsusuri
+ng mga ebidensiya at aktuwal na mga datos. </p>
+<br> <p>Pamamaraan sa Pananaliksik</b> </p>
+<p>Narito ang ilan sa mga pamamaraang kadalasang ginagamit sa pananaliksik</p>
+<br> <p>Deskriptibong Pamamaraan </p> 
+<p>Layon ng deskritibong pananaliksik na tugunin anng mga katanungang sino, ano, kailan,
+saan at paano ng isang partikular na paksain.
+Sinusubukan din nitong ilarawan ang kasalukuyang kalagayan, kaganapan o mga
+sistema batay sa impresyon o reaksyon ng mga respondente.
+Ayon kay Alipio M. Garcia, ang deskriptibong pananaliksik ay kinabibilangan ng lahat ng
+mga pag-aaral na magpapakahulugan sa kasalukuyang katotohanan na may kinalaman </p>
+<br> <p> <b>PAG-UNLAD PANGKAALAMAN</b> </p>
+
+<p> Sa kaligiran at kalagayan ng anomang pasksa-isangpangkat ng tao, bilang ng mga
+bagay, hanay ng mga kalagayan uri ng kaganapan, hanay ng mga kaisipan o anumang
+ibang uri ng penomenon na nais na pag-aaral ng isang mananaliksik. Dagdag pa ni
+Garcia ang pangunahing layunin sa paggamit ng pamamaraang deskriptibo ay upang
+mailarawan ang kaligiran ng isang kaganapan sa panahon ng pananaliksik at upang
+makita sa higit na malalim na bahagi ang dahilan ng isang partikular na penomenon. </p>
+ <br> <p> <b>1.2 Maipaliwanag ang mahigpit na ugnayan ng pagpapalakas ng wikang
+pambansa,sa pagtuklang ng mga uri at anyo ng pananaliksik sa iba’t ibang
+disiplina</b> </p>
+<br> <p>Historikal na Pamamaraan </p> 
+<p>Ang Historikal na Pamamaraan ay kaiba sa tunguhin ng isang deskriptibong pananaliksik
+na ilarawan ang kasalukuyang nagaganap.</p>
+Layon naman ng isang pangkasaysayang pananaliksik na ilarawan ang nakaraan o
+naganap na.
+Sa pagsasagawa ng ganitong uri ng pananaliksik, nangangalap ng mga datos at
+impormasyon ang mananaliksik na may kaugnayan sa nakaraang kalagayan. Ang mga
+nakalap na mga datos at impormasyon ng mananaliksik ang siya niyang gagamitin upang
+mailarawan ang epekto ng mga kalagayan, kaganapan at sistema ng nakaraan sa
+kasalukuyang nangingibabaw na kalkaran at kung ano ang magaganap sa hinaharap. </p>
+
+<br> <p>Eksperimental na Pamamaraan </p> 
+Ayon kay Luke Wales Mailalarawan ang isang eksperimental na gamit ang mga
+sumusunod na katangian </p> 
+<br> <p>1. Ang baryabol na sumasailalim sa pag-aaaral ay maaaring isagawa o gamitin at
+maaaring matukoy ang kaligiran nito. </p>
+<br> <p>2. Ang resulta mula sa aplikasyon o paggamit nito ay maaring matukoy
+at masukat na may kaugnayan sa inilahad na suliranin. </p>
+
+<br> <p>3. Natutukoy ang mga baryabol na walang kinalaman sa suliranin na maaaring
+makaapekto sa materyal na resulta. </p> 
+<br> <p>4. Ang pag-aaral o eksperimento ay kinakailangang makalikha ng balidong resulta
+panlabas o panloob. Ang panloob na balidad ay nangangahulugang na walang
+anomang lilitaw na walang kinalaman sa pag-aaral na hindi dumaan sa pagsusuri. </p>
+<br> <p>Etnograpikong Pamamaraan </p> 
+<p>Higit sa pagpunta sa mga aklatan at pagsangguni sa mga panakasulat na batis,
+kailangang magmasid at makipamuhay ang mananaliksik sa pamamaraang Etnograpiko
+Batay kay Eugene Y. Evasco tatlong antas ng pagpapakahulugan ang pamamaraang
+etnograpiko. </p> 
+Una- bilang pangunahing metodolohiya ang antropolohiya, tumutukoy ito sa kalipunan ng
+mga metodo para sa organisadong paglalarawan ng isang pamayanan o grupo ng tao.
+Pangalawa- Pinapakahulugan ang etnograpikong pamamaraan bilang dokumentasyong
+isinasagawa ng isang antropologo o ng sinong nagsasagawa ng sistematikong pagtatala
+bg mga kultura. 
+Pangatlo- tumutukoy rin ang etnnograpikong pamamaraan sa isang estilo o paraan ng
+pagsusulat. Tinatawag itong ethograpic writing, kakikitaan ito ng pagiging
+deskriptibo, repleksibo at pagkamalikhain.</p>
+<br> <p>Ang halaga ng Pananaliksik </p> 
+<br> <p>• Sa pamamagitan ng pananaliksik, lumalawak at lumalalim ang karanasan ng tao, hindi
+lang tungkol sa partikular na paksang pinag-aaralan niya,kundi sa lipunang
+nagsisilbing konteksto ng kaniyang pananaliksik. </p>
+<br> <p>• Magkakaroon siya ng pagkakataong makasalamuha ang kapuwa at nakikita niya ang
+bisa ng pananaliksik upang mapabuti. </p> 
+<br> <p>• Ang pananaliksik ay lalong mailalatag ang halaga ng pananaliksik kung isasaalangalang ang pangangailangan ng lipunang kinalulugaran nito. </p>
+                   
+                      </div>
+                 
+                 `
+                
+             },
+           {
+        id: 14,
+        title: "Aralin 15: Malinang ang Filipino bilang daluyan ng inter/multidisiplinaring diskurso at pananaliksik",
+        content: `
+            <div class="lesson-text">
+                <br> <p><b>MGA DULOG AT TEYORYA SA PANANALIKSIK</b></p>
+                <p>Ang mga dulog at teaorya sa pananaliksik ang gabay ng isang mananaliksik kung paano isasagawa o bibigyang-direksyon ang siasaliksik, Karaniwan itong gingawang batayan upang ilahad kung aling mga datos ang taglay na ng mananaliksik, kung anong proseso ang kanyang isasagawa upang makapangalap ng datos.</p>
+                <br> <p><b>Ang Teyorya ng Dating</b></p>
+                <p>Sinasabi ni Bienvennido Lumbera na noon pa man, ang teorya ng “Dating” ay ginagamit na ng mga mananaliksik, higit sa mga panunuring pampanitikan. Sa pamamagitan ng teoryang ito ay naipababatid ng isang manunulat o mananaliksik ang naging epekto at apekto ng isang babasahin sa isang mambabasa.</p>
+                <br> <p><b>Ang Teoryang Bakod-Bukod-Buklod</b></p>
+                <p>Ipinakilala ni Elizabeth Morales- Nuncio ng Pamantasang De La Salle a g teoryang ito, sa pamamagitan ng teoryang ito ay ihinahain ang isang pananaliksik sa pamamagitan ng pagsusuri kung paano tinataglay ng magkakaibang baryabol ang hangganan ng isang baryabol o ang pagpapakita ng “bakod” ang pagiging katangitangi ng bawat baryabol o paglalahad ng “bukod” Gayundin ang tinatawag na “buklod” Maaaring ihalintulad ang teoryang ito sa pamamagitan ng pagbuo ng isang Venn Diagram. Sa paggamit ng Venn Diagram, kahit may maraming baryabol ang susuriin. Nailalahad ang mga katangian ng baryabol batay sa kung paano ito nabibigyanglimitasyon, naipakita at nailalahad ang pagkakatulad at pagkakaiba Sa Serye ng Lekturang pangwika ni Dr. David Michael San Juan (2018) ang konseptong ito ni Elizabeth Nuncio. Sa kanyang presentasyong poerpoint ay ganito ang nakasaan.</p>
+                <br> <p>• Bakod: konsepto ng heyograpiya; sakop at saklaw, dimensyon at lawak ng nasasakupan; pisikal na dibisyon </p>
+                <br> <p>• Bukod: pagsasantabi o eksklusyon; konsept  ng marginalization.</p>
+                <br> <p>• Buklod: mga espasyo na bukas para sa lahat gayan ng daanan food court, public CR atbp.</p>
+                <br> <p>• Ang Siyudad ng Mall: Ang Bakod, Bukod at Buklod bilang Espasyo at Biswal mula Tabuan hanggang SM City Noth Edsa ni Elizabeth Morales-Nuncio</p>
+                <br> <p><b>1.2 Maunawaan ng malinaw ang pagkakaiba-iba ng mga metodo sa pananaliksik sa lipunan</b></p> 
+                 <br> <p>Posibleng Aplikasyon ng Bakod,Bukod at Buklod</p>
+                 <br> <p>• Pag-aaral sa mga espasyo at kung paano tayo pinapahihiwalay o pinaguugnay nito.</p>
+                 <br> <p>• Pag-aaral hinggil sa gated village at “gilidages” (mga maralitang komunidad sa tabi ng mga gated subdivision)</p>
+                 <br> <p>• Pag-aaral sa eksklusibidad ng ilang mga lugar/espasyo sa bansa.</p>
+                 <br> <p>• Pag-aaral sa kaibahan ng work space ng ordinaryong manggagawa at ng mga CEO, at mga lugar ng kanilang interaksiyon (board room atbp)</p>
+                 <br> <p>Pagbaklas/Pagbagtas</p>
+                 <p>Mahusay gamitin ang ganitong teorya at dulog kung ang sasaliksikin ay mga polisiya upang ang polisiyang banggit ay lalo pang mapahusay o kaya ay tuluyang isaisantabi na muna. Malayang nakakapaghahain ng mga pangyayari na tumataliwas o tumututol sa polisiya o ang tinatawag na “pagkalas” Responsibilidad ng kung kakalas ay may matibay o kongkretong datos na ihahain upang mapasubalian o maipakita ang kahinaan ng isang polisiya.</p>
+                 <br> <p>Natiro ang Presentasyon ni Dr. Michael Davi San Juan (2018) patungkol sa  Pagbaklas/Pagbagtas</p>
+                 <br> <p>• Pag-aklas :pagsusuring historikal</p>
+                 <br> <p>• Pagbaklas: pagbuwag sa mga tradisyonal na pag-aaral</p>
+                 <br> <p>• Pagbagtas: paghahapag ng alternatibo; pagtawid sa hinaharap</p>
+                 <p>Isang halimbawang pananaliksik gamit ang konseptong ito ay ang pag-aklas,  Pagbaklas, Pagbagtas: Politikal na Kritisismong Pampanitikan ni Rolando Tolentino at mungkahi ring pananaliksik ni San Juan para sa konseptong ito ay ang pag-aklas, Pagbaklas, Pagbagtas sa Patakarang Pangkaularan ng Pilipinas</p>
+                 <br> <p><b>1.3 Maitaguyod ang paggamit ng wikang Filipino sa Pananliksik sa iba pang disiplina</b></p>
+                 <p>Ito ang pamana ni Dr. Zeus Salazar (1997) ang konsepto ng Pantayong pananaw. Narito ang kanyang pagbubuod sa konsepto Ang buod ng pantayong pananaw ay nasa panloob na pagkakaugnay-ugnay at pag-uugnay ng mga katangian, halagahin, , hangarin, kaugalian, pag-aasal, kaalaman, karunungan at karanasan ng isang kabuuang pangkalinangan--- kabuuang nababalot sa ta ipinapahayag sa pamamagitab bg isang wika; ibig sabihin sa loob ng isang nagsasariling talastasan/diskursong pangkalinangan pangkabihasnan. Isang reyalidad ito sa loob ng alin mang grupong etnolingguwistikong may kabuuan at kakayahan, sa atin at sa ibang dako man ng mundo.</p>
+                 <br> <p>Pagdalumat- Salita</p>
+                 <p>Sa serye ng lektura sa wika na ginaganap sa Politeknikong Unibersidad ng Pilipinas, tinalakay ni Propesro Roderick Nuncio ang maraming konsepto sa pananaliksik. Isa na rito ang tinatawag na pagdalumat-salita.</p>
+                 <br> <p>Ayon kay Propesor Roderick Nuncio  Tinatawag na dalumat-salita ang paggamit ng wika sa mataas na antas ng pagteteorya batay sa masusi, masinop, kritikal at analitikal na paggamit ng mga salita kumakatawan ng mga ideya at kaalamang nagiging konsepto sa malalimang paguuri’t paggamit nito tinitingna sa paraang ito ang ugnayan ng salitang ugat at ang varyasyon ng mga pagbabanghay ng salita na nagluluwal ng sanga-sangang kahulugan (Nuncio at Morales 2004) Maraming nang gumagamit ng ganitong dulog lalo na ang mga mananaliksik sa Unibersidad ng Pilipinas, De La Salle University, at Ateneo De Manila University. May ilang mga nagtataka na rin sa Politeknikong Unibersidad ng Pilipinas, Pamantasan ng Lungsod ng Maynila at maging sa Dalubhasang Normal ng Pilipinas Sa lektura rin ni Nuncio ay ipinakita niya ang estilo ng mga mananaliksik sa pagdamulat-salita Nasa kanya ring presentasyon ang sumusunod;</p>
+                 <br> <p>• Pag – imbento/pagkatha ng ga bagong salita/konsepto: Pinipinolohiya ni Covar, Pantayog Pananaw ni Zeus zalazar, Pamathalaan ni Consolacion </p>
+                 <p>Alaras, Sarilaysay ni Rosario Torres-Yu.</p>
+                 <br> <p>• Pagsasalin at pagdagdag ng kahulugan: kritika, anda, at gahum ni IRC, loob at labas.</p>
+                 <br> <p>• Pag-aangkop rekonstekstuwalisasyon: Sikolohiyang Pilipino ni Virgilio Enriquez, Kasaysayan bilang “salaysay na may saysay” at “pag uulat sa sarili”; Dating bilang pagdadalumat sa estetikang filipino ni Lumbera  </p>
+                 <br> <p>• Pantawang pananaw- kapangyarihan ng tawa na tumutuligsa at mang-uyam sa mga nasa kapangyarihan; ang tawa bilang kritika.</p>
+                 <br> <p>• Sagandiwa (ksama ang kanyang asawa sa pagkatha nito) kalikasan ng araling Filipino bilang multidisiplinari ang lapit, multikultural at multilinggwal ang mga konsiderasyon sa pag-aaral nito. Pasasanga- sanga ng mga talastasang pangkalinangan sa loob at labas ng bansa na may lalim at lawak. Kaisahan ito ng maramihang pakikisangkot tungo sa mapanaklaw at malawakang kapilipinuhan ng sarili’t bansa (2004: 167)</p>
+            </div>
+        `
+    },
+    {
+      id: 15,
+        title: "Aralin 16: Maunawaan ang halaga ng metodo pananaliksik ",
+        content: ` <div class="lesson-text"> 
+        
+        <div class="lesson-text">
+        <p>4.1 Maunawaan ang halaga ng metodo pananaliksik</p>
+        <p><b>MGA BATAYANG KAALAMAN SA METODOLOHIYA SA PANANALIKSIK PANLIPUNAN</b></p>
+        <p>Napakaraming mapagpipiliang pamamaraan o metodolohiya sa pananaliksik panlipunan na maaaring gamitin. Narito ang ilan lamang sa mga uri na maaaring ikonsidera sa paggawa ng pananaliksik.</p>
+        <p><i>Case Study</i>- Nauuna ang pananaliksik na ito dahil sa holistikong dulog. Ito ay nagdadala sa paggalugad at pag-unawa ng mga malawak na isyu Maaaring mauri ang Case Study sa mga sumusunod;</p>
+        <ul>
+            <li>Athroretical</li>
+            <li>Interpretative</li>
+            <li>Hypothetic-generating</li>
+            <li>Theory-confirming</li>
+            <li>Theory-informing</li>
+            <li>Deviant Case Study</li>
+        </ul>
+        <p>Ang pinagkaiba ng bawat isa ya batay sa layunin at ninanais na hanapin, hagilapin at bigyang pag-aaral ng mananaliksik (Yin, 1994)</p>
+        <p><i>Etnograpiya</i>- Ito ay nagmula sa terminong Etnikong Pag-aaral. Ang uring ito ng kwalitatibong pananaliksik ay nakapokus sa sistematikong pagrerekord ng kultura ng tao, orginasasyon, operasyong internal at paraan ng pamumuhay. Sa pagtitiyak, kasama rito ang aspekto ng kultura gaya ng mga seremonya, ritwal mga nakagawian at pang-araw-araw na mga pangyayari.</p>
+        <p><i>Penomelohiya</i>- Ito at tumutukoy sa pag-aaral ng pag-unlad ng [agkakabatid ng pagkatao at pagkakakilala sa sarili. Ang uring ito ng pananaliksik ay nakapokus kung paanong ang tao ay nakahahanap ng makabuluhang karanasan.</p>
+        <p><i>Analisis ng Nilalaman at Diskurso</i> - Ang Pananaliksik na ito ay nagtatangkang analisahin at pag-aralan kung paanong ang wika ay nagamit sa teksto at mga pananaliksik. Kasama rito ang analisis ng mga dokumento gaya ng mga naisulat na mga talumpati dokumento ng mga polisiya, pahayagan at iba pa. Karagdagan pa rito, ang mananaliksik na gumagamit ng kontent analisi ay nagbibilang ng mga paggamit ng mga salitan,parirala o tema. Sila ay gagawa ng ispesyalisadong panuntunan sa PAG-UNLAD PANGKAALAMAN Filipino sa Iba’t ibang Disiplina FILDIS paglalagay ng kowd. (karaniwan na maaaring magamit sa kompyuter)</p>
+        <p>4.2 Matukoy ang mga iba pang pamamaraan sa pananaliksik</p>
+        <p><i>Impak Asesment</i> - Kilala rin ito bilang pagtataya ng impak. Ito ang ginagamit na pag-aaral upang masukat ang kahusayan ng mga gawaing pang-organisasyon at pagtukoy sa makabuluhang pagbabagong naiambag ng mga isinagawang prouekto. Karaniwang nakaugat sa Misyon ng organisasyon ang m=impak asesment na kumakalat patungo sa mga gawaing isinasakatuparan ng buong organisasyon.</p>
+        <p>Narito ang ilan sa mga maaaring paraan upang higit na mapakinabangan ang pagkakaroon ng impak asesment:</p>
+        <p>Panloob/Internal</p>
+        <ul>
+            <li>Tasahin ang kahalagahan ng mga istratehiya, kung ang mga kasalukuyang ginagamit na istratehiya ay totoong nakapag-ambag sa pangkalahatang layunin ng organisasyon</li>
+            <li>Tayain ang kahusayan ng Sistema ng pamamahala at ng Istruktura ng organisasyon –kung ang mga kinapapalooban ng mga istrukturang ito ay nakapagtatamo ng pangkalahatang layunin ng organisasyon.</li>
+            <li>Tayain ang mga komunikasyon- ang mga mensahe ba ay mahusay na napaparating sa kabuoan ng organisasyon.</li>
+        </ul>
+        <p>Panlabas/Eksternal</p>
+        <ul>
+            <li>Ipakita sa mga donor ng impak ng kanilang kontribusyon- gumawa ng link ng ugnayan sa pagitan ng kanilang donasyon sa pagbabago ng buhay ng kanilang mga benepisyaryo.</li>
+            <li>Ipakita sa publiko ang kahusayan, kahalagahan at kaayusan ng oprasyonang impak ay nakakukuha nang mas malaking pang-suporta.</li>
+            <li>Ipakita sa mga potensiyal na nagnanais na sumoporta ang pokus ng organisasyon- na ang matamo ang pagbabago kaysa sa pagpokus sa proseso.</li>
+            <li>Pataasin pa ang adbokasiya- maging apektibong tinig na makatutulong sa paghahatid ng kanilang mga saloobin.</li>
+            <li>Ipakita ang trasparensi- upang maipakita ang kahusayan at pagiging maasyo na takbo ng organisasyon, kinakailangang nagagastos nang wasto ang mga suporta sang-ayon sa pagkakaunawa sa pangkalahatang layunin ng organisasyon.</li>
+            <li>Maging bukas sa Pagsisiyasat- kailangang hindi natatakot na siyasatin ang Filipino sa Iba’t ibang Disiplina FILDIS organisasyon para sa pagbeberipika ng katotohanan ng mga pagpapatakbo nito.</li>
+        </ul>
+        <p><i>SWOT analisis</i>- Binigyang pagtalakay ni Nicole Falion (2018) Ang SWOT analisi bilang Strenght, Weaknesses, Opportunities at Threast na pagsusuri. Pangunahing kayoyin ng SWOT analisis na matulungan ang mga organisasyon na magkaroon ng kabuang pagkakabatid sa lahat ng salik na bahagi ng pagdedesisyon. Ang metodong ito ay nilikha ni Edmund PI learned, C Roland Christensen, Kenneth Andrew at Wiliam D. sa kanilang libro na Business Policy, Text and Cases (R.D Irwin,1996) Binubuo ng mga elementong S (Strength) Kalakasan W (Weaknesses) Kahinayaan O (Opportunities) Pagkakataon o oportunidad at T (Threats) mga Panganib. Karaniwang may apat na kolum sa pagsasagawa ng ganitong analisis</p>
+        <p>Mga internal na salik:</p>
+        <p>Ang S/W o kalakasan at kahinaan ay mga internal panloob na salik ng pagsusuri. Ito ay maaring ang mga kagamitan at karanasan sa loob ng kompanya o oraganisasyon tulad ng sumusunod: Pinansiyal na pangangailangan ( ito ay maaaring pagpopondo, pinangangailangan ng tubo, pagkakataon para sa investment) Pisikal na Pangangailangan (lokasyon, pasilidad, mga ekwimpment) pantaong pangangailangan (mga empleyado, boluntir, mga target na kliyente) akses sa natural na proseso ( programang pangmanggagawa, hirarkiya ng kagawaran at sisitemang software></p>
+        <p>Mga Eksternal na salik- Nakakaapekto nang malaki ang mga panlabas o eksternal na mga puwersa sa bawat kompanya, organisasyon o maging sa mga indibidwal. Maging direkta man o hindi, ang mga ito ay maaaring maging pagkakataon o panganib (O/T) Kaya nga’t napakahalagang tandaan at odokumento ang mga ito.</p>
+        <p>4.3 Maisapraktika at mapaunlad pa ang mga metodo sa pananaliksik</p>
+        <p><i>Historikal na Analisis</i>- Ang uring ito ng pananaliksik ay nagagawang ang bawat indibidwal ay magkaroon ng kabatiran sa nakaraan. Ang paikot na pananaw ng kasaysayan ay nangangahulugan na ang pananaw ng mananaliksik sa mga nakaraang pangyayari bilang linyar- na ang isang pangyayari ay susundan ng isa pa.</p>
+        <p><i>Kasaysayang Pasalita</i>- Ito ay higit sa pamamaraang pangognolekta ng datos kaysa sa disenyo ng pananaliksik, gayonpaman, sa kwalitatibong pananaliksik, ito ay isa sa mga dulog sa pag-aaral ng persepsiyon, karanasan at mga tagpo sa kasaysayan, o pangangalap ng mga kaalamang historilak sa pananaw ng indibidwal.</p>
+        <p><i>Grounded Theory</i> - Ang uring ito ng pananaliksik ay nagaganap kapag nakadiskubre ng bagong teorya na nagagamit sa iyong pag-aaral sa panahon ng pangongolekta at analisis ng mga datos. Inisa-isa ni Charmaz (1995-2002) ang ilan sa mga katangian ng grounded theory.</p>
+        <ol>
+            <li>Walang tigil na koleksiyon at pagsusuri ng mga data.</li>
+            <li>Paglikha ng mga analitik kowd at mga kategorya na nalinang mula sa mga datos.</li>
+            <li>Pagkakatuklas sa mga datos ng mga batayang prosesong panlipunan.</li>
+            <li>Induktibong pagkakabuo ng mga kategorya abstrak.</li>
+            <li>Teyoretikal na pagsasampol upang pakinisin ang mga kategorya.</li>
+            <li>Pagsulat ng mga analitikal na memo sa mga antas sa pagitan ng pagkokowd at pagsulat</li>
+            <li>Ang pagsasanib ng mga kategorya sa balangkas teyoretikal.</li>
+        </ol>
+        <p><i>Pagmamapang Kultural</i>-Isang kwalitatibong pananaliksik na madalas na isinasagawa para sa preserbasyong na mga kulturang pamana</p>
+        <p>Gamit ng Pagmamapang Kultural</p>
+        <ul>
+            <li>Pagtatayang historikal</li>
+            <li>Paggalugad sa pangkuturang identidad</li>
+            <li>Pagpaplanong Kultural</li>
+            <li>Pagpaplano para sa natutustusang pag-unlad</li>
+        </ul>
+        <p><i>Holistikong Pananaliksik</i> - Ang holistikong dulog sa pananaliksik ay higit na tinitingnan bilang pilosopiya kaysa disenyo. Ang disenyo ay nakabatay mula sa pilosopiya, Upang maunawaan ang sitwasyon o penomenon, kinakailangan tingnan ito sa kanyang kabuoan- na holistikong sinisipat mula sa iba’t ibang perspektiba.</p>
+        <p><i>Feministang Pananaliksik</i> - Ito ay kinakatawanan ng pilosopikal na teoryang feminista, pawang mga katanungan at kaukulang pangjababaihan ang siyang gabay na balangkas. Ang Feministang Pananaliksik ay naiiba sa mga tradisyonal na pananaliksik sa sumusunod na paraan:</p>
+        <p><i>Una</i>- Ang pangunahing focus nito ay karanasan at pananaw ng kababaihanat ito ay gumagamit ng metodong pananaliksik na ang layunin ay makuha ang mga pananaw at karanasan.</p>
+        <p><i>Ikalawa</i>- aktibo nitong tinatanggal o binabawasan ang hindi balanseng kapangyarihan sa pagitan ng mananaliksik at tagatugon.</p>
+        <p><i>Ikatlo</i>- Ang layunin ng feministang pananaliksik ay baguhin ang hindi pagkakapantay-pantay na pagtingin ng lipunan sa mga kalalakihan at kababaihan.</p>
+        <p><i>Pagbuo ng Teoryang (theory of Building)</i>- Ito ay sistematikong pagbuo at eksposisyon ng bagong teorya, mula sa pagsusuri sa mga umiiral na teorya, konsepto mga modelo obserbasyon iskolaring komunikasyon, mga datos na mula modelo.</p>
+        <p><i>Diplomatik</i>- Ang metodong ito ay kabuoan ng mga teknik, teorya at prinsipyo sa pag-aanalisa sa mga anyo, gamit at pinagmulan ng mga dokumento na may partikular na tingin sa pagtatayo ng awtentisiti. (karaniwang nakaugat sa mga legal na gham, pilosopiya at historyagrapiya)</p>
+        <p><i>Pagdebelop ng Griunded Theory</i> Ang metodong ito ay nakatuon sa pagdiskubre ng mga konsepto, hipotesis at nagdebelop ng teorya na direktang nakuha mula sa mga nakolektang mga datos.</p>
+        <p><i>Arkival (Archival) na Pananaliksik</i>- Kasama sa malawak na pamamaraan ng arkival na pananaliksik ang mga gamiting gawain sa pagsusuri ng mga dokumento at mga nakasulat na materyales ng mga organisasyon. Ginagamit din ng mga iskolar ang arkival na pananaliksik sa mga tekstong nalikha at gagamitin ng mga kasalukuyang organisasyon upang masusugan ang ilang estratehiya sa pananaliksik. Narito ang ilan sa mga nagiging bahagi ng arkival na pananaliksik sa iba pang metodolohiya.</p>
+        <p><i>Pagtatago ng Rekord at pagsusuri ng Sistemang Arkival</i>- Ito naman ay pagsusuri at ebalwasyon ng mga gawain. Proseso at tungkulin sa kompleks na sistemang pantao, Institusyonal at teknolohikal.</p>
+        <p><i>Pagbuo at paglikha ng modelo</i>- Ito ay gamit ng pormal na mga aktibidad, relasyon ng mga entiti, konsepto, gampanin at mga paulit-ulit na teknik ng modelong datos.</p>
+        <p><i>Pagdidisenyo ng Sistema at Paglikha ng Prototayp</i> Ito ay kinilala bilang pagdebelop at karaniwang nasa pananaliksik na panginhenyeriya. Karaniwang kasama ng pagdedebelop ang paggalugad, makabagong aplikasyon at mga teyoryang operasyonal</p>
+        <p><i>Etnograpikong Dulog</i> Kasama rito ang etnograpikong pagtatago ng mga rekord, arkival na etnograpiya o etnograpiyang arkival Nagagamit ang arkival na pananaliksik sa uring ito sa pamamagitan ng malalimang pag-aaral ng pagtatago ng rekord, gawain arkival, pangnakaraan at pangkasalukuyang gawaing pambansa, kultural, pamamahala, institusyonal at personal na konteksto.</p>
+    </div>
+        
+        </div>
+        `
+      
+        
+    },
+    {
+       id: 16,
+        title: "Aralin 17: Maunawaan ang halaga ng Instrumento ng pananaliksik",
+        content: ` 
+        
+             <div class="lesson-text"> 
+             
+             
+             <div class="lesson-text">
+        <p>4.1 Maunawaan ang halaga ng Instrumento ng pananaliksik</p>
+        <p><b>MGA INSTRUMENTO SA PANANALIKSIK</b></p>
+        <p>Pakikipanayam ang karaniwang instrumenting ginagamit sa mga pananaliksik. Halos lahat ng mga tugon at datos sa isinasagawang pananaliksik ay nanggagaling sa mga interbyu na naitala o nirekord</p>
+        <p>Ang pakikipanayam tumutukoy sa proseso ng pangangalap ng mga datos o impormasyon sa Pamamagitan ng paglalatag ng mga serye ng mga katanungan sa ninanais na Tumugon Karaniwang ang tagapanayam ang naghahain ng mga katanungan na humihingi ng deretsahan at ispesipikong katugunan, ngunit mas madalas sa kwalitatibong pananaliksik ang mga bukas o open-ended na katanungan na nagdadala kinakapanayam na makapagbigay ng higit na detalyadong kasagutan</p>
+        <p><b>Mga Paghahanda sa Pakikipanayam/Interbyu</b></p>
+        <p><i>Una</i></p>
+        <p>Pumili ng lugar na paggaganapan ng panayam. Napakahalaga na maging komportable ang parehong panig sa panahon ng panayam. Iwasan ang mga lugar na nakapagdudulot ng distraksyon gaya ng ingay, sobrang liwanag o dilim, o kaya nama’y masyadong mataong lugar. Laging siguruhing tanungin ang kinakapanayam kung komportable ba siya sa lugar na gaganapan ng panayan o kung may nais ba siyang lugar na doon ganapin ang panayam.</p>
+        <p><i>Ikalawa</i></p>
+        <p>Ipaliwanag ang layunin ng panayam. Bukod sa pagiging kompidensyal, kinakailangan ding malaman ng iyong kakapanayamin ang layunin o dahilan ng isinasagawang pag-aaral at kung sino-sino ang maaring makakita o makabatid ng isinasagawang panayam. Makatutulong sa isang mananaliksik kung mayroong nakasulat na liham na aprubado ng kakapanayamin upang makasiguro sa kaniyang pagpayag sa nasabing Gawain</p>
+        <p><i>Ikatlo</i></p>
+        <p>Ipaliwanag ang magiging haba o panahon ng panayam. Bagama’t ito’y napakasimpleng gawain, kadalasang napababayaan ng mga mananaliksik na PAG-UNLAD PANGKAALAMAN Filipino sa Iba’t ibang Disiplina FILDIS ipaliwanag kung gaano katagal o gaano kahaba ang gagawing panayam. Sa kwalitatibong pananaliksik, hindi lamang isang beses nagaganap ang panayam, kadalasan ito ay nauulit lalo’t may mga iba pang impormasyong kakailanganin Siguruhing sa unang pagkikita pa lamang sa iyong tagatugon ay maipaliwanag na sa kanya ang pangangailangan ng pag follow-up sa ilang mga impormasyon upang makasapat sa pangangailangan ng isinasagawang pag-aaral. Gayonpaman, sa pag follow-up, kailangang masiguro ang maayos na ugnayan sa iyong tagatugon</p>
+        <p><i>Ikaapat</i></p>
+        <p>Tanungin kung mayroon silang katanungan. Kailangang tiyakin bilang mananaliksik na ang iyong tagatugon ay sumasang-ayon at wala nang mga anong na maaaring nakapagdadala sa kaniya sa pag-aalinlangan. Ang isang mahusay na makipanayam ay kayang gawing marelax ang kondisyon ng kaniyang kinakapanayam, kailangang may mahusay na kasanayan sa pakikinig upang mapadaloy nang maayos ang panayam at makuha ang mga datos na totoong nagrereflek ang opinion at damdamin ng kinakapanayam sa paksang pinaguusapan</p>
+        <p><i>Ikalima.</i></p>
+        <p>Huwag umasa sa iyong memorya para sa mga nakalap na sagot. Humingi ng pahintulot sa iyong kinakapanayam na irerekord ang usapan o kaya naman ay magsama ng tagatala ng mga napagusapan. Siguraduhin na ang lahat ng impormasyon at nairekord na audio ay nakaorganisa at maingat na naitatago at napahahalagahan</p>
+        <p>4.2 Matukoy ang mga mapagkakatiwalaang instrument sa pananaliksik na gagamitin</p>
+        <p><b>FOCUS GROUP DISCUSSION (FGD)</b></p>
+        <p>Sa maraming aspekto, ang Focus Group Discussion ay katulad din ng pakikipanayam dahil ito ay malaya sa pagtatanong. Gayonpaman, isinasagawa ito upang mapalawak ang pamamaraan dahil ang mga kalahok ay nagkakaroon ng interaksiyon sa isa’t isa at nakaiimpluwensya sa mga inihayag na ideya ng mga kasama sa panayam.</p>
+        <p><b>COMMUNITY DISCUSSION FORUMS</b></p>
+        <p>Ito ay nakadisenyo upang kumalap ng mga opinion, pag-uugali at ediya ng komunidad na may kaugnayan sa mga suliranin at isyung panlipunan</p>
+    </div>
+        
+         
+        </div>
+        `
+             
+    },
+    {
+      
+    
+        id: 17,
+        title: "About",
+        content: `
+           <div class="lesson-text">
+  <p>
+    This website is designed to provide students with accessible lessons for the Filipino subject,
+    specifically focusing on its application across various disciplines.
+  </p>
+
+  <p>It was developed through the collaborative effort of the following individuals:</p>
+
+  <ul class="team-list">
+    <li>ENGUERRA, AARON</li>
+    <li>CATABAY, DRAKE JOMEL</li>
+    <li>TURLA, FRANCOIS</li>
+    <li>REYES, JEFFEDRHYX</li>
+    <li>BOYO, JUSTIN</li>
+    <li>BOLANO, KURT</li>
+    <li>MURILLO, RUSSEL</li>
+    <li>MARIANO, KEITH</li>
+  </ul>
+
+  <p>
+    We hope this resource proves to be a valuable tool in your Filipino language studies.
+  </p>
+
+  <p class="footer-note">
+    &copy; 2025 All Rights Reserved.
+  </p>
+
+</div>
+        `
+    }
+];
+
+        // Function to display lessons in sidebar
+        function displayLessons() {
+            const lessonList = document.getElementById('lessonList');
+            lessons.forEach(lesson => {
+                const li = document.createElement('li');
+                li.className = 'lesson-item';
+                li.textContent = lesson.title;
+                li.onclick = () => showLessonContent(lesson);
+                lessonList.appendChild(li);
+            });
+        }
+
+        // Function to show lesson content
+        function showLessonContent(lesson) {
+            const contentDiv = document.getElementById('lessonContent');
+            contentDiv.innerHTML = `
+                <h1 class="lesson-title">${lesson.title}</h1>
+                ${lesson.content}
+            `;
+        }
+
+        // Initialize the page
+        window.onload = function() {
+            displayLessons();
+            // Show the first lesson by default
+            showLessonContent(lessons[0]);
+        };
+    </script>
+</body>
+</html>
